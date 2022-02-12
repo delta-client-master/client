@@ -17,15 +17,19 @@ dependencies {
     modImplementation("net.fabricmc:fabric-loader:0.12.12")
 }
 
-minecraft {
+loom {
+    val dir = project.projectDir.toString() + File.separatorChar + "assets" + File.separatorChar + "client.jar"
+    clientJarPath = dir
+
     intermediaryUrl = object : java.util.function.Function<String, Any> {
         override fun apply(p1: String): Any {
             return "https://maven.legacyfabric.net/net/fabricmc/intermediary/$p1/intermediary-$p1-v2.jar"
         }
     }
-}
 
-loom {
-    val dir = project.projectDir.toString() + File.separatorChar + "assets" + File.separatorChar + "client.jar"
-    clientJarPath = dir
+    runs {
+        getByName("client") {
+            runDir = "1.8.9" + File.separatorChar + "run"
+        }
+    }
 }
