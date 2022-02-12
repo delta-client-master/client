@@ -20,12 +20,12 @@ dependencies {
 minecraft {
     intermediaryUrl = object : java.util.function.Function<String, Any> {
         override fun apply(p1: String): Any {
-            return "https://maven.legacyfabric.net/net/fabricmc/intermediary/" + p1 + "/intermediary-" + p1 + "-v2.jar"
+            return "https://maven.legacyfabric.net/net/fabricmc/intermediary/$p1/intermediary-$p1-v2.jar"
         }
     }
 }
 
 loom {
-    val dir = project.rootDir.toString() + File.separatorChar + "assets" + File.separatorChar + "client.jar"
+    val dir = project.projectDir.toString() + File.separatorChar + "assets" + File.separatorChar + "client.jar"
     clientJarPath = dir
 }
