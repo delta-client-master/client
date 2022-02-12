@@ -18,3 +18,4 @@ pluginManagement {
 
 rootProject.name = "client"
 include("1.8.9")
+include("1.7.10")
