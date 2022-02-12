@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.deltaclient.client.v1_8.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "MinecraftClientMixin"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
