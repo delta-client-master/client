@@ -1,5 +1,6 @@
 plugins {
     java
+    kotlin("jvm")
 }
 
 group = "com.deltaclient"
@@ -10,5 +11,9 @@ repositories {
 }
 
 dependencies {
-    compileOnly("org.jetbrains:annotations:16.0.2")
+    testImplementation(kotlin("test"))
+}
+
+tasks.test {
+    useJUnitPlatform()
 }
