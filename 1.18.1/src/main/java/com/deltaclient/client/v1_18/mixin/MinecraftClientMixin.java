@@ -1,12 +1,15 @@
-package com.deltaclient.client.v1_8.mixin;
+package com.deltaclient.client.v1_18.mixin;
 
-import com.deltaclient.client.v1_8.util.LWJGLDisplayImpl;
+import com.deltaclient.client.v1_18.util.LWJGLDisplayImpl;
 import com.deltaclient.common.Delta;
 import com.deltaclient.common.bridge.game.IMinecraftClientBridge;
 import com.deltaclient.common.bridge.player.IClientPlayerEntityBridge;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.RunArgs;
 import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.client.util.Window;
 import org.jetbrains.annotations.Nullable;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -18,15 +21,16 @@ public class MinecraftClientMixin implements IMinecraftClientBridge {
     @Shadow
     public ClientPlayerEntity player;
 
-    @Inject(method = "initializeGame", at = @At("HEAD"))
-    void initializeGameHead(CallbackInfo ci) {
+    @Shadow
+    @Final
+    private Window window;
+
+    @Inject(method = "<init>", at = @At("RETURN"))
+    void init(RunArgs args, CallbackInfo ci) {
         Delta.mc = this;
         Delta.lwjglDisplay = new LWJGLDisplayImpl();
-    }
 
-    @Inject(method = "initializeGame", at = @At("RETURN"))
-    void initializeGame(CallbackInfo ci) {
-        Delta.onGameStart("1.8.9");
+        Delta.onGameStart("1.18.1");
     }
 
     @Override
@@ -36,6 +40,6 @@ public class MinecraftClientMixin implements IMinecraftClientBridge {
 
     @Override
     public long getWindowHandle() {
-        return -1;
+        return window.getHandle();
     }
 }

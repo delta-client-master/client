@@ -1,9 +1,5 @@
 package com.deltaclient.common;
 
-import com.deltaclient.common.util.AbstractLWJGLUtil;
-import org.jetbrains.annotations.NotNull;
-
-// TODO: Event system using Consumers
 // TODO: Basic mod system
 // TODO: Properties system for mods
 // TODO: Most mods are just text elements so we can probably do some easy abstraction for those
@@ -14,6 +10,6 @@ import org.jetbrains.annotations.NotNull;
 // TODO: Possibly Voice Chat
 // TODO: Emote base
 
+// FIXME: Remove this and put todos elsewhere
 public abstract class AbstractDeltaPlatform {
-    public abstract @NotNull AbstractLWJGLUtil getLWJGLUtil();
 }

@@ -1,11 +1,11 @@
-package com.deltaclient.client.v1_8.mixin;
+package com.deltaclient.client.v1_7.mixin;
 
-import com.deltaclient.client.v1_8.util.LWJGLDisplayImpl;
+import com.deltaclient.client.v1_7.util.LWJGLDisplayImpl;
 import com.deltaclient.common.Delta;
 import com.deltaclient.common.bridge.game.IMinecraftClientBridge;
 import com.deltaclient.common.bridge.player.IClientPlayerEntityBridge;
+import net.minecraft.class_481;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayerEntity;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(MinecraftClient.class)
 public class MinecraftClientMixin implements IMinecraftClientBridge {
     @Shadow
-    public ClientPlayerEntity player;
+    public class_481 field_3805;
 
     @Inject(method = "initializeGame", at = @At("HEAD"))
     void initializeGameHead(CallbackInfo ci) {
@@ -31,7 +31,7 @@ public class MinecraftClientMixin implements IMinecraftClientBridge {
 
     @Override
     public @Nullable IClientPlayerEntityBridge getClientPlayer() {
-        return (IClientPlayerEntityBridge) player;
+        return (IClientPlayerEntityBridge) field_3805;
     }
 
     @Override

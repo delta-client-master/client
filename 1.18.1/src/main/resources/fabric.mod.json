@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "id": "delta",
+  "version": "1.0",
+  "name": "Delta Client",
+  "description": "",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+    ]
+  },
+  "mixins": [
+    "delta.1_18.mixins.json"
+  ],
+  "depends": {
+    "minecraft": "1.18.1"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
+}

@@ -15,6 +15,8 @@ dependencies {
     minecraft("com.mojang:minecraft:1.7.10")
     mappings("net.fabricmc:yarn:1.7.10+build.202201302314:v2")
     modImplementation("net.fabricmc:fabric-loader:0.12.12")
+
+    implementation(project(":common"))
 }
 
 loom {

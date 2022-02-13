@@ -14,4 +14,14 @@ dependencies {
     minecraft("com.mojang:minecraft:1.18.1")
     mappings("net.fabricmc:yarn:1.18.1+build.22:v2")
     modImplementation("net.fabricmc:fabric-loader:0.13.1")
+
+    implementation(project(":common"))
+}
+
+loom {
+    runs {
+        getByName("client") {
+            runDir = "1.18.1" + File.separatorChar + "run"
+        }
+    }
 }
