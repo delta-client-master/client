@@ -5,7 +5,9 @@ import org.jetbrains.annotations.NotNull;
 import java.util.UUID;
 
 public interface IClientPlayerEntityBridge {
-    @NotNull String getUsername();
+    @NotNull
+    String getUsername();
 
-    @NotNull UUID getUUID();
+    @NotNull
+    UUID getUUID();
 }

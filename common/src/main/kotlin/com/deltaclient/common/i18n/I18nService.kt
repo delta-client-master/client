@@ -1,14 +1,17 @@
 package com.deltaclient.common.i18n
 
+import com.deltaclient.common.Delta
 import java.io.ByteArrayOutputStream
 import java.util.zip.ZipInputStream
 
 object I18nService {
     private val languages = mutableMapOf<String, Map<String, String>>()
-    private val defaultLang = "en_US"
+    private const val defaultLang = "en_US"
 
-    // FIXME: This should instead be a getter to get minecrafts current language
-    val currentLang: String = "en_US"
+    private val currentLang: String
+        get() {
+            return Delta.mc.languageManager.currentLanguageCode
+        }
 
     fun load() {
         val source = I18nService::class.java.protectionDomain.codeSource

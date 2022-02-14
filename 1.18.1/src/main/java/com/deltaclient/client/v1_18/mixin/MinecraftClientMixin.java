@@ -3,11 +3,14 @@ package com.deltaclient.client.v1_18.mixin;
 import com.deltaclient.client.v1_18.util.LWJGLDisplayImpl;
 import com.deltaclient.common.Delta;
 import com.deltaclient.common.bridge.game.IMinecraftClientBridge;
+import com.deltaclient.common.bridge.lang.ILanguageManagerBridge;
 import com.deltaclient.common.bridge.player.IClientPlayerEntityBridge;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.RunArgs;
 import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.client.resource.language.LanguageManager;
 import net.minecraft.client.util.Window;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -25,6 +28,10 @@ public class MinecraftClientMixin implements IMinecraftClientBridge {
     @Final
     private Window window;
 
+    @Shadow
+    @Final
+    private LanguageManager languageManager;
+
     @Inject(method = "<init>", at = @At("RETURN"))
     void init(RunArgs args, CallbackInfo ci) {
         Delta.mc = this;
@@ -36,6 +43,12 @@ public class MinecraftClientMixin implements IMinecraftClientBridge {
     @Override
     public @Nullable IClientPlayerEntityBridge getClientPlayer() {
         return (IClientPlayerEntityBridge) player;
+    }
+
+    @NotNull
+    @Override
+    public ILanguageManagerBridge getLanguageManager() {
+        return (ILanguageManagerBridge) languageManager;
     }
 
     @Override
