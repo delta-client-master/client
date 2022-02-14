@@ -39,7 +39,7 @@ public class MinecraftClientMixin implements IMinecraftClientBridge {
 
     @Inject(method = "initializeGame", at = @At("RETURN"))
     void initializeGame(CallbackInfo ci) {
-        Delta.onGameStart("1.8.9");
+        Delta.onGameStart("1.7.10");
     }
 
     @Override
