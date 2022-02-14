@@ -2,14 +2,14 @@ pluginManagement {
     repositories {
         gradlePluginPortal()
 
-        val DELTA_NX_USER: String by settings
-        val DELTA_NX_PASS: String by settings
+        val deltaNxUser: String by settings
+        val deltaNxPass: String by settings
 
         maven("https://nexus.deltaclient.com/repository/internal/") {
             authentication {
                 credentials {
-                    username = DELTA_NX_USER
-                    password = DELTA_NX_PASS
+                    username = deltaNxUser
+                    password = deltaNxPass
                 }
             }
         }
