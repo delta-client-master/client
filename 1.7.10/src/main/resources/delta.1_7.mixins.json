@@ -6,7 +6,8 @@
   "mixins": [
     "ClientPlayerEntityMixin",
     "LanguageManagerMixin",
-    "MinecraftClientMixin"
+    "MinecraftClientMixin",
+    "SessionMixin"
   ],
   "client": [
   ],

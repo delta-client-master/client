@@ -5,7 +5,7 @@ import java.util.function.Consumer
 import kotlin.reflect.KClass
 
 object EventBus {
-    val subscriptions: MutableMap<KClass<*>, MutableSet<Consumer<Any>>> = Collections.synchronizedMap(hashMapOf())
+    val subscriptions: MutableMap<KClass<*>, MutableSet<Consumer<Any>>> = Collections.synchronizedMap(HashMap())
 
     fun subscribe(parent: Any) {
         val handlers = EventFactory.getSubscriptions(parent)

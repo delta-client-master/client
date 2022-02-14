@@ -1,6 +1,7 @@
 plugins {
     java
     id("fabric-loom") version "0.7-SNAPSHOT"
+    kotlin("jvm")
 }
 
 group = "com.deltaclient"
@@ -36,4 +37,6 @@ loom {
             programArgs.add("{}")
         }
     }
+
+    accessWidener = file("src/main/resources/delta.accesswidener")
 }

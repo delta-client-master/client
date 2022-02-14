@@ -5,12 +5,13 @@ import com.deltaclient.common.Delta;
 import com.deltaclient.common.bridge.game.IMinecraftClientBridge;
 import com.deltaclient.common.bridge.lang.ILanguageManagerBridge;
 import com.deltaclient.common.bridge.player.IClientPlayerEntityBridge;
+import com.deltaclient.common.bridge.session.ISessionBridge;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.resource.language.LanguageManager;
+import net.minecraft.client.util.Session;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -23,8 +24,10 @@ public class MinecraftClientMixin implements IMinecraftClientBridge {
     public ClientPlayerEntity player;
 
     @Shadow
-    @Final
     private LanguageManager languageManager;
+
+    @Shadow
+    public Session session;
 
     @Inject(method = "initializeGame", at = @At("HEAD"))
     void initializeGameHead(CallbackInfo ci) {
@@ -46,6 +49,17 @@ public class MinecraftClientMixin implements IMinecraftClientBridge {
     @Override
     public ILanguageManagerBridge getLanguageManager() {
         return (ILanguageManagerBridge) languageManager;
+    }
+
+    @Nullable
+    @Override
+    public ISessionBridge getSession() {
+        return (ISessionBridge) session;
+    }
+
+    @Override
+    public void setSession(@Nullable ISessionBridge sessionBridge) {
+        session = (Session) sessionBridge;
     }
 
     @Override
