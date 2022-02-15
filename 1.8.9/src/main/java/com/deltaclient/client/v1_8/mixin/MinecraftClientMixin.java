@@ -1,5 +1,6 @@
 package com.deltaclient.client.v1_8.mixin;
 
+import com.deltaclient.client.v1_8.session.SessionFactory;
 import com.deltaclient.client.v1_8.util.LWJGLDisplayImpl;
 import com.deltaclient.common.Delta;
 import com.deltaclient.common.bridge.game.IMinecraftClientBridge;
@@ -32,6 +33,7 @@ public class MinecraftClientMixin implements IMinecraftClientBridge {
     @Inject(method = "initializeGame", at = @At("HEAD"))
     void initializeGameHead(CallbackInfo ci) {
         Delta.mc = this;
+        Delta.sessionFactory = SessionFactory.INSTANCE;
         Delta.lwjglDisplay = new LWJGLDisplayImpl();
     }
 
