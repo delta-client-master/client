@@ -17,6 +17,7 @@ dependencies {
     mappings("net.fabricmc:yarn:1.7.10+build.202201302314:v2")
     modImplementation("net.fabricmc:fabric-loader:0.12.12")
 
+    modImplementation(project(":common"))
     implementation(project(":common"))
 }
 
@@ -35,6 +36,7 @@ loom {
             runDir = "1.7.10" + File.separatorChar + "run"
             programArgs.add("--userProperties")
             programArgs.add("{}")
+            vmArgs.add("-Dmixin.debug.export=true")
         }
     }
 

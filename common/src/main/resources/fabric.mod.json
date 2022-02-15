@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "id": "delta-common",
+  "version": "1.0",
+  "name": "Delta Client Common",
+  "description": "",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+    ]
+  },
+  "mixins": [
+    "delta.common.mixins.json"
+  ],
+  "depends": {
+    "minecraft": "*"
+  }
+}

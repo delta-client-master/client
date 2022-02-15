@@ -16,6 +16,7 @@ dependencies {
     mappings("net.fabricmc:yarn:1.18.1+build.22:v2")
     modImplementation("net.fabricmc:fabric-loader:0.13.1")
 
+    modImplementation(project(":common"))
     implementation(project(":common"))
 }
 

@@ -12,6 +12,7 @@
   "mixins": [
     "delta.1_7.mixins.json"
   ],
+  "accessWidener": "delta.accesswidener",
   "depends": {
     "minecraft": "1.7.10"
   },

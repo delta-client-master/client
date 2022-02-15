@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.deltaclient.common.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "ClientBrandMixin",
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
