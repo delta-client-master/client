@@ -2,10 +2,9 @@ package com.deltaclient.common.event
 
 import java.util.*
 import java.util.function.Consumer
-import kotlin.reflect.KClass
 
 object EventBus {
-    val subscriptions: MutableMap<KClass<*>, MutableSet<Consumer<Any>>> = Collections.synchronizedMap(HashMap())
+    val subscriptions: MutableMap<Class<*>, MutableSet<Consumer<Any>>> = Collections.synchronizedMap(HashMap())
 
     fun subscribe(parent: Any) {
         val handlers = EventFactory.getSubscriptions(parent)
@@ -14,7 +13,7 @@ object EventBus {
 
     @Suppress("UNCHECKED_CAST")
     inline fun <reified T : Any> subscribe(consumer: Consumer<T>) {
-        subscriptions.compute(T::class) { _, set ->
+        subscriptions.compute(T::class.java) { _, set ->
             val subscribers = set ?: hashSetOf()
             subscribers.add(consumer as Consumer<Any>)
 
@@ -23,7 +22,7 @@ object EventBus {
     }
 
     fun <T : Any> post(event: T): T {
-        subscriptions[event::class]?.forEach { subscriber ->
+        subscriptions[event::class.java]?.forEach { subscriber ->
             subscriber.accept(event)
         }
 

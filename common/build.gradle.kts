@@ -16,8 +16,6 @@ dependencies {
     compileOnly("com.mojang:authlib:3.2.38")
     compileOnly("net.fabricmc:sponge-mixin:0.11.1+mixin.0.8.5")
 
-    implementation(kotlin("reflect"))
-
     testImplementation(kotlin("test"))
 }
 
