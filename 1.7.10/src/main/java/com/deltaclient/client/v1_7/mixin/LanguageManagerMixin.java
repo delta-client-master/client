@@ -13,7 +13,7 @@ public class LanguageManagerMixin implements ILanguageManagerBridge {
 
     @NotNull
     @Override
-    public String getCurrentLanguageCode() {
+    public String bridge$getCurrentLanguageCode() {
         return field_6652;
     }
 }

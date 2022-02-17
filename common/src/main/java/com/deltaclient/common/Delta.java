@@ -3,6 +3,7 @@ package com.deltaclient.common;
 import com.deltaclient.common.bridge.game.IMinecraftClientBridge;
 import com.deltaclient.common.bridge.session.ISessionBridge;
 import com.deltaclient.common.bridge.session.ISessionFactory;
+import com.deltaclient.common.feature.FeatureService;
 import com.deltaclient.common.i18n.I18nService;
 import com.deltaclient.common.util.ILWJGLDisplay;
 import com.mojang.authlib.exceptions.AuthenticationException;
@@ -29,10 +30,13 @@ public final class Delta {
 
             try {
                 ISessionBridge session = sessionFactory.createMojangSession(email, pass);
-                mc.setSession(session);
+                mc.bridge$setSession(session);
             } catch (AuthenticationException e) {
                 throw new RuntimeException(e);
             }
         }
+
+        // hack to load it
+        FeatureService featureService = FeatureService.INSTANCE;
     }
 }

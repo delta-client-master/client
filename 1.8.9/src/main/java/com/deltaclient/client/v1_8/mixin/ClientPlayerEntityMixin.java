@@ -17,12 +17,12 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
     }
 
     @Override
-    public @NotNull String getUsername() {
+    public @NotNull String bridge$getUsername() {
         return super.getNameClear();
     }
 
     @Override
-    public @NotNull UUID getUUID() {
+    public @NotNull UUID bridge$getUUID() {
         return super.getUuid();
     }
 }

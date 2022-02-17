@@ -2,6 +2,8 @@
 
 This readme for now is going to be to keep track of a few things
 
+Naming: Mods (things like Armour Status, Potion Status, etc.) will be internally named "Features" to reduce some confusion, naming stolen from a friend :^)
+
 TODOS:
  - Make our own modified version of 1.7/1.8 mappings, based off of 1.18 mappings
 

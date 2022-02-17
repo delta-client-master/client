@@ -6,8 +6,10 @@ import com.deltaclient.common.Delta;
 import com.deltaclient.common.bridge.game.IMinecraftClientBridge;
 import com.deltaclient.common.bridge.lang.ILanguageManagerBridge;
 import com.deltaclient.common.bridge.player.IClientPlayerEntityBridge;
+import com.deltaclient.common.bridge.render.ITextRendererBridge;
 import com.deltaclient.common.bridge.session.ISessionBridge;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.resource.language.LanguageManager;
 import net.minecraft.client.util.Session;
@@ -30,6 +32,12 @@ public class MinecraftClientMixin implements IMinecraftClientBridge {
     @Shadow
     public Session session;
 
+    @Shadow
+    private static int currentFps;
+
+    @Shadow
+    public TextRenderer textRenderer;
+
     @Inject(method = "initializeGame", at = @At("HEAD"))
     void initializeGameHead(CallbackInfo ci) {
         Delta.mc = this;
@@ -43,29 +51,40 @@ public class MinecraftClientMixin implements IMinecraftClientBridge {
     }
 
     @Override
-    public @Nullable IClientPlayerEntityBridge getClientPlayer() {
+    public @Nullable IClientPlayerEntityBridge bridge$getClientPlayer() {
         return (IClientPlayerEntityBridge) player;
     }
 
     @NotNull
     @Override
-    public ILanguageManagerBridge getLanguageManager() {
+    public ILanguageManagerBridge bridge$getLanguageManager() {
         return (ILanguageManagerBridge) languageManager;
     }
 
     @Nullable
     @Override
-    public ISessionBridge getSession() {
+    public ISessionBridge bridge$getSession() {
         return (ISessionBridge) session;
     }
 
     @Override
-    public void setSession(@Nullable ISessionBridge sessionBridge) {
+    public void bridge$setSession(@Nullable ISessionBridge sessionBridge) {
         session = (Session) sessionBridge;
     }
 
     @Override
-    public long getWindowHandle() {
+    public long bridge$getWindowHandle() {
         return -1;
+    }
+
+    @Override
+    public int bridge$getCurrentFps() {
+        return currentFps;
+    }
+
+    @NotNull
+    @Override
+    public ITextRendererBridge bridge$getTextRenderer() {
+        return (ITextRendererBridge) textRenderer;
     }
 }

@@ -5,9 +5,11 @@
   "compatibilityLevel": "JAVA_8",
   "mixins": [
     "ClientPlayerEntityMixin",
+    "InGameHudMixin",
     "LanguageManagerMixin",
     "MinecraftClientMixin",
-    "SessionMixin"
+    "SessionMixin",
+    "TextRendererMixin"
   ],
   "client": [
   ],
