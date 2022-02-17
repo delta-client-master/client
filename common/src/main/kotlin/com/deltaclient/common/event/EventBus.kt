@@ -17,7 +17,7 @@ object EventBus {
             val subscribers = set ?: hashSetOf()
             subscribers.add(consumer as Consumer<Any>)
 
-            return@compute set
+            return@compute subscribers
         }
     }
 

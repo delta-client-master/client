@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 import java.util.function.Consumer
+import kotlin.test.assertTrue
 
 internal class EventBusTest {
     @Test
@@ -13,22 +14,22 @@ internal class EventBusTest {
         val sub = Sub(latch)
 
         EventBus.subscribe(sub)
-        EventBus.subscribe<Int> {
+        EventBus.subscribe<String> {
             latch.countDown()
         }
 
-        EventBus.post(1)
-        latch.await(50, TimeUnit.MILLISECONDS)
+        EventBus.post("Hello World")
+        assertTrue { latch.await(50, TimeUnit.MILLISECONDS) }
     }
 
     class Sub(private val latch: CountDownLatch) {
-        @Subscribe(Int::class)
-        val fieldSub = Consumer<Int> {
+        @Subscribe(String::class)
+        val fieldSub = Consumer<String> {
             latch.countDown()
         }
 
-        @Subscribe(Int::class)
-        fun methodSub(int: Int) {
+        @Subscribe(String::class)
+        fun methodSub(int: String) {
             latch.countDown()
         }
     }
