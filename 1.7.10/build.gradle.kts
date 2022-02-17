@@ -12,11 +12,6 @@ repositories {
     maven("https://maven.legacyfabric.net")
 }
 
-configurations {
-    val shade = create("shade")
-    implementation.get().extendsFrom(shade)
-}
-
 dependencies {
     minecraft("com.mojang:minecraft:1.7.10")
     mappings("net.fabricmc:yarn:1.7.10+build.202201302314:v2")
@@ -48,15 +43,3 @@ loom {
 
     accessWidener = file("src/main/resources/delta.accesswidener")
 }
-//
-//tasks {
-//    shadowJar {
-//        configurations = listOf(project.configurations.getByName("shade"))
-//    }
-//
-//    remapJar {
-//        dependsOn(shadowJar)
-//        mustRunAfter(shadowJar)
-//        this.input.set(shadowJar.get().archiveFile.get())
-//    }
-//}
