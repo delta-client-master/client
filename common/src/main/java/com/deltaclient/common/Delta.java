@@ -4,7 +4,7 @@ import com.deltaclient.common.bridge.game.IMinecraftClientBridge;
 import com.deltaclient.common.bridge.session.ISessionBridge;
 import com.deltaclient.common.bridge.session.ISessionFactory;
 import com.deltaclient.common.command.CommandRegistry;
-import com.deltaclient.common.command.impl.SetFeatureCoordsCommand;
+import com.deltaclient.common.command.impl.FeatureCommand;
 import com.deltaclient.common.command.impl.arg.DraggableHUDFeatureArgumentProvider;
 import com.deltaclient.common.feature.AbstractDraggableHUDFeature;
 import com.deltaclient.common.feature.FeatureService;
@@ -30,7 +30,7 @@ public final class Delta {
             CommandRegistry registry = new CommandRegistry();
 
             registry.bind(AbstractDraggableHUDFeature.class).toProvider(new DraggableHUDFeatureArgumentProvider());
-            registry.register(new SetFeatureCoordsCommand(), "setcoords", "xy");
+            registry.register(new FeatureCommand(), "feature", "f", "feat");
         }
 
         I18nService.INSTANCE.load();
