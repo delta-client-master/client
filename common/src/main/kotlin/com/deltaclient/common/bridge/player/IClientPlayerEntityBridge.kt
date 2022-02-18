@@ -9,4 +9,10 @@ interface IClientPlayerEntityBridge {
 
     @JvmName("bridge\$getUUID")
     fun getUUID(): UUID
+
+    /**
+     * Adds a message into their chat box
+     */
+    @JvmName("impl\$sendMessage")
+    fun sendMessage(message: String)
 }

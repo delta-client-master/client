@@ -3,6 +3,10 @@ package com.deltaclient.common;
 import com.deltaclient.common.bridge.game.IMinecraftClientBridge;
 import com.deltaclient.common.bridge.session.ISessionBridge;
 import com.deltaclient.common.bridge.session.ISessionFactory;
+import com.deltaclient.common.command.CommandRegistry;
+import com.deltaclient.common.command.impl.SetFeatureCoordsCommand;
+import com.deltaclient.common.command.impl.arg.DraggableHUDFeatureArgumentProvider;
+import com.deltaclient.common.feature.AbstractDraggableHUDFeature;
 import com.deltaclient.common.feature.FeatureService;
 import com.deltaclient.common.i18n.I18nService;
 import com.deltaclient.common.util.ILWJGLDisplay;
@@ -16,10 +20,19 @@ public final class Delta {
 
     public static ILWJGLDisplay lwjglDisplay;
 
+    public static boolean development = true; // TODO: Use a launch arg or something for this
+
     private Delta() {
     }
 
     public static void onGameStart(@NotNull String version) {
+        if (development) {
+            CommandRegistry registry = new CommandRegistry();
+
+            registry.bind(AbstractDraggableHUDFeature.class).toProvider(new DraggableHUDFeatureArgumentProvider());
+            registry.register(new SetFeatureCoordsCommand(), "setcoords", "xy");
+        }
+
         I18nService.INSTANCE.load();
         lwjglDisplay.setTitle(I18nService.INSTANCE.translate("client_name") + " " + version);
 

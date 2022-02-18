@@ -4,6 +4,7 @@
   "package": "com.deltaclient.client.v1_7.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+    "ChatScreenMixin",
     "ClientPlayerEntityMixin",
     "InGameHudMixin",
     "LanguageManagerMixin",

@@ -1,9 +1,13 @@
 package com.deltaclient.common.feature
 
-abstract class AbstractTextFeature : IFeature {
+import com.deltaclient.common.Delta.mc
+import com.deltaclient.common.event.impl.RenderOverlayEvent
+import java.awt.Color
+
+abstract class AbstractTextFeature : AbstractDraggableHUDFeature() {
     abstract val text: String
 
-    // Overriding these as text features shouldn't need them
-    override fun onEnable() = Unit
-    override fun onDisable() = Unit
+    override fun draw(event: RenderOverlayEvent) {
+        mc.textRenderer.draw(event.matrices, text, x, y, Color.WHITE.rgb)
+    }
 }
