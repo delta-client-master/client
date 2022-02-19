@@ -11,6 +11,7 @@
     "MatrixStackEntryMixin",
     "MatrixStackMixin",
     "MinecraftClientMixin",
+    "MouseMixin",
     "ScreenMixin",
     "SessionMixin",
     "TextRendererMixin"
