@@ -1,6 +1,7 @@
 package com.deltaclient.client.v1_18.mixin;
 
 import com.deltaclient.client.v1_18.session.SessionFactory;
+import com.deltaclient.client.v1_18.util.DrawableHelperBridgeImpl;
 import com.deltaclient.client.v1_18.util.LWJGLDisplayImpl;
 import com.deltaclient.common.Delta;
 import com.deltaclient.common.bridge.game.IMinecraftClientBridge;
@@ -52,6 +53,7 @@ public class MinecraftClientMixin implements IMinecraftClientBridge {
         Delta.mc = this;
         Delta.sessionFactory = SessionFactory.INSTANCE;
         Delta.lwjglDisplay = new LWJGLDisplayImpl();
+        Delta.drawableHelper = DrawableHelperBridgeImpl.INSTANCE;
 
         Delta.onGameStart("1.18.1");
     }

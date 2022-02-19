@@ -7,6 +7,8 @@
     "ClientPlayerEntityMixin",
     "InGameHudMixin",
     "LanguageManagerMixin",
+    "Matrix4fMixin",
+    "MatrixStackEntryMixin",
     "MatrixStackMixin",
     "MinecraftClientMixin",
     "ScreenMixin",

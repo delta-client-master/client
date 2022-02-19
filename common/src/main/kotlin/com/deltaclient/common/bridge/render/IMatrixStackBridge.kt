@@ -10,4 +10,7 @@ interface IMatrixStackBridge {
 
     @JvmName("bridge\$scale")
     fun scale(x: Float, y: Float, z: Float)
+
+    @JvmName("bridge\$peek")
+    fun peek(): IMatrixStackEntryBridge
 }

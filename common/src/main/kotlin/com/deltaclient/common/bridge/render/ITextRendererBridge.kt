@@ -7,4 +7,7 @@ interface ITextRendererBridge {
 
     @JvmName("bridge\$getWidth")
     fun getWidth(text: String): Int
+
+    @JvmName("impl\$getHeight")
+    fun getHeight(): Int
 }

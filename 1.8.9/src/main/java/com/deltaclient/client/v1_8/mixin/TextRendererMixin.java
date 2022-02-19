@@ -15,6 +15,9 @@ public abstract class TextRendererMixin implements ITextRendererBridge {
     @Shadow
     public abstract int getStringWidth(String par1);
 
+    @Shadow
+    public int fontHeight;
+
     @Override
     public int bridge$draw(IMatrixStackBridge matrices, @NotNull String text, float x, float y, int color) {
         return draw(text, (int) x, (int) y, color);
@@ -23,5 +26,10 @@ public abstract class TextRendererMixin implements ITextRendererBridge {
     @Override
     public int bridge$getWidth(@NotNull String text) {
         return getStringWidth(text);
+    }
+
+    @Override
+    public int impl$getHeight() {
+        return fontHeight;
     }
 }
