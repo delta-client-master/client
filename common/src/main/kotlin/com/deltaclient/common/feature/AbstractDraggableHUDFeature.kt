@@ -23,11 +23,19 @@ abstract class AbstractDraggableHUDFeature : IFeature {
     var bgSize by FloatProperty("Background Size", 3F)
 
     fun draw(event: RenderOverlayEvent) {
+        event.matrices.push()
+
+        if (scale != 1F) {
+            event.matrices.scale(scale, scale, 0F)
+        }
+
         if (drawBg) {
             drawBackground(event.matrices)
         }
 
         drawFeature(event)
+
+        event.matrices.pop()
     }
 
     private fun drawBackground(matrices: IMatrixStackBridge) {
