@@ -17,9 +17,8 @@ class FeatureCommand {
     fun set(
         @Sender sender: IClientPlayerEntityBridge, feature: AbstractDraggableHUDFeature, propName: String, value: String
     ) {
-        val prop =
-            PropertyService.getProperties(feature)!!.find { it.name == propName }?.let { it as AbstractProperty<*> }
-                ?: throw CommandExitMessage("Property cant be null")
+        val prop = PropertyService.getProperties(feature)!!.find { it.name.replace(" ", "") == propName }
+            ?.let { it as AbstractProperty<*> } ?: throw CommandExitMessage("Property cant be null")
 
         when (prop) {
             is IntProperty -> {
