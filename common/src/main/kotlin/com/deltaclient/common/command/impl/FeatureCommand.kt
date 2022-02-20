@@ -2,26 +2,37 @@ package com.deltaclient.common.command.impl
 
 import com.deltaclient.common.bridge.player.IClientPlayerEntityBridge
 import com.deltaclient.common.feature.AbstractDraggableHUDFeature
+import com.deltaclient.common.feature.property.AbstractProperty
+import com.deltaclient.common.feature.property.PropertyService
+import com.deltaclient.common.feature.property.impl.BooleanProperty
+import com.deltaclient.common.feature.property.impl.FloatProperty
+import com.deltaclient.common.feature.property.impl.IntProperty
 import dev.lillian.bonk.core.annotation.Command
 import dev.lillian.bonk.core.annotation.Sender
+import dev.lillian.bonk.core.exception.CommandExitMessage
 
 class FeatureCommand {
-    @Command(name = "xy", desc = "Set coords for shit")
-    fun coords(
-        @Sender sender: IClientPlayerEntityBridge, feature: AbstractDraggableHUDFeature, x: Double, y: Double
+    @Suppress("USELESS_CAST")
+    @Command(name = "set", aliases = ["s"], desc = "Set properties")
+    fun set(
+        @Sender sender: IClientPlayerEntityBridge, feature: AbstractDraggableHUDFeature, propName: String, value: String
     ) {
-        feature.x = x.toFloat()
-        feature.y = y.toFloat()
+        val prop =
+            PropertyService.getProperties(feature)!!.find { it.name == propName }?.let { it as AbstractProperty<*> }
+                ?: throw CommandExitMessage("Property cant be null")
 
-        sender.sendMessage("Set ${feature.name}'s X/Y to $x/$y!")
-    }
+        when (prop) {
+            is IntProperty -> {
+                prop.value = value.toInt()
+            }
+            is FloatProperty -> {
+                prop.value = value.toFloat()
+            }
+            is BooleanProperty -> {
+                prop.value = value.toBoolean()
+            }
+        }
 
-    @Command(name = "scale", desc = "Set scale for shit")
-    fun scale(
-        @Sender sender: IClientPlayerEntityBridge, feature: AbstractDraggableHUDFeature, scale: Double
-    ) {
-        feature.scale = scale.toFloat()
-
-        sender.sendMessage("Set ${feature.name}'s scale to $scale!")
+        sender.sendMessage("Set ${feature.name}'s ${prop.name} to $value!")
     }
 }

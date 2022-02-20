@@ -3,22 +3,24 @@ package com.deltaclient.common.feature
 import com.deltaclient.common.Delta
 import com.deltaclient.common.bridge.render.IMatrixStackBridge
 import com.deltaclient.common.event.impl.RenderOverlayEvent
+import com.deltaclient.common.feature.property.impl.BooleanProperty
+import com.deltaclient.common.feature.property.impl.FloatProperty
 import java.awt.Color
 
 // TODO: Implement dragging of features
 
 abstract class AbstractDraggableHUDFeature : IFeature {
-    // X/Y indicating the top right
-    var x = 0F
-    var y = 0F
+    // X/Y indicating the top left
+    var x by FloatProperty("x", 0F)
+    var y by FloatProperty("y", 0F)
 
-    var scale = 1F
+    var scale by FloatProperty("Scale", 1F)
 
     var width = 0F
     var height = 0F
 
-    var drawBg = true
-    var bgSize = 3F
+    var drawBg by BooleanProperty("Draw Background", true)
+    var bgSize by FloatProperty("Background Size", 3F)
 
     fun draw(event: RenderOverlayEvent) {
         if (drawBg) {

@@ -12,8 +12,6 @@ import java.util.concurrent.CompletableFuture
 class CommandRegistry : AbstractCommandRegistry<BaseCommandContainer>() {
     init {
         EventBus.subscribe<ChatMessageSendEvent> {
-            val player = mc.player
-
             var msg = it.message
             if (msg[0] != '.') {
                 return@subscribe
@@ -31,6 +29,7 @@ class CommandRegistry : AbstractCommandRegistry<BaseCommandContainer>() {
                 emptyList()
             }
 
+            val player = mc.player!!
             val executor = ClientPlayerCommandExecutor(player)
 
             var cmd = getCommands()[commandLabel]

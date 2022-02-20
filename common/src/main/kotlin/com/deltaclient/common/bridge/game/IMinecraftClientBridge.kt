@@ -8,7 +8,7 @@ import com.deltaclient.common.bridge.session.ISessionBridge
 @Suppress("INAPPLICABLE_JVM_NAME")
 interface IMinecraftClientBridge {
     @get:JvmName("bridge\$getClientPlayer")
-    val player: IClientPlayerEntityBridge
+    val player: IClientPlayerEntityBridge?
 
     @get:JvmName("bridge\$getLanguageManager")
     val languageManager: ILanguageManagerBridge
