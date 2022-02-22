@@ -1,7 +1,7 @@
 package com.deltaclient.client.v1_8.util
 
 import com.deltaclient.common.bridge.render.IMatrixStackBridge
-import com.deltaclient.common.util.IDrawableHelperBridge
+import com.deltaclient.common.bridge.util.IDrawableHelperBridge
 import com.mojang.blaze3d.platform.GlStateManager
 import net.minecraft.client.gui.DrawableHelper
 import net.minecraft.client.render.Tessellator

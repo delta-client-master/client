@@ -1,15 +1,16 @@
 package com.deltaclient.common;
 
 import com.deltaclient.common.bridge.game.IMinecraftClientBridge;
+import com.deltaclient.common.bridge.language.II18nBridge;
 import com.deltaclient.common.bridge.session.ISessionBridge;
 import com.deltaclient.common.bridge.session.ISessionFactory;
+import com.deltaclient.common.bridge.util.IDrawableHelperBridge;
 import com.deltaclient.common.command.CommandRegistry;
 import com.deltaclient.common.command.impl.FeatureCommand;
 import com.deltaclient.common.command.impl.arg.DraggableHUDFeatureArgumentProvider;
 import com.deltaclient.common.feature.AbstractDraggableHUDFeature;
 import com.deltaclient.common.feature.FeatureService;
 import com.deltaclient.common.i18n.I18nService;
-import com.deltaclient.common.util.IDrawableHelperBridge;
 import com.deltaclient.common.util.ILWJGLDisplay;
 import com.mojang.authlib.exceptions.AuthenticationException;
 import org.jetbrains.annotations.NotNull;
@@ -22,6 +23,8 @@ public final class Delta {
     public static ILWJGLDisplay lwjglDisplay;
 
     public static IDrawableHelperBridge drawableHelper;
+
+    public static II18nBridge i18nBridge;
 
     public static boolean development = true; // TODO: Use a launch arg or something for this
 

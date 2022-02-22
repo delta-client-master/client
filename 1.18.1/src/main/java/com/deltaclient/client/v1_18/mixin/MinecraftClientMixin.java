@@ -1,5 +1,6 @@
 package com.deltaclient.client.v1_18.mixin;
 
+import com.deltaclient.client.v1_18.language.I18nBridgeImpl;
 import com.deltaclient.client.v1_18.session.SessionFactory;
 import com.deltaclient.client.v1_18.util.DrawableHelperBridgeImpl;
 import com.deltaclient.client.v1_18.util.LWJGLDisplayImpl;
@@ -9,11 +10,13 @@ import com.deltaclient.common.bridge.lang.ILanguageManagerBridge;
 import com.deltaclient.common.bridge.player.IClientPlayerEntityBridge;
 import com.deltaclient.common.bridge.render.ITextRendererBridge;
 import com.deltaclient.common.bridge.session.ISessionBridge;
+import com.deltaclient.common.bridge.texture.IStatusEffectSpriteManagerBridge;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.RunArgs;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.resource.language.LanguageManager;
+import net.minecraft.client.texture.StatusEffectSpriteManager;
 import net.minecraft.client.util.Session;
 import net.minecraft.client.util.Window;
 import org.jetbrains.annotations.NotNull;
@@ -28,25 +31,23 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(MinecraftClient.class)
 public class MinecraftClientMixin implements IMinecraftClientBridge {
     @Shadow
+    private static int currentFps;
+    @Shadow
     public ClientPlayerEntity player;
-
-    @Shadow
-    @Final
-    private Window window;
-
-    @Shadow
-    @Final
-    private LanguageManager languageManager;
-
     @Shadow
     public Session session;
-
-    @Shadow
-    private static int currentFps;
-
     @Shadow
     @Final
     public TextRenderer textRenderer;
+    @Shadow
+    @Final
+    private Window window;
+    @Shadow
+    @Final
+    private LanguageManager languageManager;
+    @Shadow
+    @Final
+    private StatusEffectSpriteManager statusEffectSpriteManager;
 
     @Inject(method = "<init>", at = @At("RETURN"))
     void init(RunArgs args, CallbackInfo ci) {
@@ -54,6 +55,7 @@ public class MinecraftClientMixin implements IMinecraftClientBridge {
         Delta.sessionFactory = SessionFactory.INSTANCE;
         Delta.lwjglDisplay = new LWJGLDisplayImpl();
         Delta.drawableHelper = DrawableHelperBridgeImpl.INSTANCE;
+        Delta.i18nBridge = I18nBridgeImpl.INSTANCE;
 
         Delta.onGameStart("1.18.1");
     }
@@ -94,5 +96,11 @@ public class MinecraftClientMixin implements IMinecraftClientBridge {
     @Override
     public ITextRendererBridge bridge$getTextRenderer() {
         return (ITextRendererBridge) textRenderer;
+    }
+
+    @NotNull
+    @Override
+    public IStatusEffectSpriteManagerBridge bridge$getStatusEffectSpriteManager() {
+        return (IStatusEffectSpriteManagerBridge) statusEffectSpriteManager;
     }
 }

@@ -1,9 +1,10 @@
 package com.deltaclient.common.bridge.player
 
+import com.deltaclient.common.bridge.entity.ILivingEntityBridge
 import java.util.*
 
 @Suppress("INAPPLICABLE_JVM_NAME")
-interface IClientPlayerEntityBridge {
+interface IClientPlayerEntityBridge : ILivingEntityBridge {
     @JvmName("bridge\$getUsername")
     fun getUsername(): String
 

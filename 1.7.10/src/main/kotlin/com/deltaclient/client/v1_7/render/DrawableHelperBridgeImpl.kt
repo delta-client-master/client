@@ -1,10 +1,15 @@
-package com.deltaclient.client.v1_7.util
+package com.deltaclient.client.v1_7.render
 
+import com.deltaclient.client.v1_7.texture.CustomSprite
 import com.deltaclient.common.bridge.render.IMatrixStackBridge
-import com.deltaclient.common.util.IDrawableHelperBridge
+import com.deltaclient.common.bridge.texture.ISpriteBridge
+import com.deltaclient.common.bridge.util.IDrawableHelperBridge
+import com.deltaclient.common.ext.cast
 import com.mojang.blaze3d.platform.GLX
+import net.minecraft.client.MinecraftClient
 import net.minecraft.client.gui.DrawableHelper
 import net.minecraft.client.render.Tessellator
+import net.minecraft.util.Identifier
 import org.lwjgl.opengl.GL11
 
 object DrawableHelperBridgeImpl : IDrawableHelperBridge, DrawableHelper() {
@@ -45,5 +50,31 @@ object DrawableHelperBridgeImpl : IDrawableHelperBridge, DrawableHelper() {
         var9.method_1396()
         GL11.glEnable(3553)
         GL11.glDisable(3042)
+    }
+
+    override fun drawTexture(
+        matrices: IMatrixStackBridge,
+        x: Int,
+        y: Int,
+        z: Int,
+        u: Float,
+        v: Float,
+        width: Int,
+        height: Int,
+        textureWidth: Int,
+        textureHeight: Int
+    ) {
+        drawTexture(x, y, u, v, width, height, textureWidth.toFloat(), textureHeight.toFloat())
+    }
+
+    override fun drawSprite(
+        matrices: IMatrixStackBridge, x: Int, y: Int, width: Int, height: Int, sprite: ISpriteBridge
+    ) {
+        val id = sprite.atlas.cast<Identifier>()
+        MinecraftClient.getInstance().textureManager.bindTexture(id)
+
+        val customSprite = sprite.cast<CustomSprite>()
+        GL11.glColor4f(1F, 1F, 1F, 1F)
+        drawTexture(x, y, customSprite.u, customSprite.v, customSprite.width, customSprite.height)
     }
 }

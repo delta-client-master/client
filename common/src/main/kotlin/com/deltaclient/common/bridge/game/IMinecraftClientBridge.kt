@@ -4,6 +4,7 @@ import com.deltaclient.common.bridge.lang.ILanguageManagerBridge
 import com.deltaclient.common.bridge.player.IClientPlayerEntityBridge
 import com.deltaclient.common.bridge.render.ITextRendererBridge
 import com.deltaclient.common.bridge.session.ISessionBridge
+import com.deltaclient.common.bridge.texture.IStatusEffectSpriteManagerBridge
 
 @Suppress("INAPPLICABLE_JVM_NAME")
 interface IMinecraftClientBridge {
@@ -25,4 +26,7 @@ interface IMinecraftClientBridge {
 
     @get:JvmName("bridge\$getTextRenderer")
     val textRenderer: ITextRendererBridge
+
+    @get:JvmName("bridge\$getStatusEffectSpriteManager")
+    val statusEffectSpriteManager: IStatusEffectSpriteManagerBridge
 }

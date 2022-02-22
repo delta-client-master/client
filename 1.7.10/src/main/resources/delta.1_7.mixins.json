@@ -6,12 +6,19 @@
   "mixins": [
     "ChatScreenMixin",
     "ClientPlayerEntityMixin",
+    "IdentifierMixin",
     "InGameHudMixin",
+    "InventoryScreenMixin",
     "KeyBindingMixin",
     "LanguageManagerMixin",
+    "LivingEntityMixin",
     "MinecraftClientMixin",
     "SessionMixin",
-    "TextRendererMixin"
+    "StatusEffectInstanceMixin",
+    "StatusEffectMixin",
+    "TextMixin",
+    "TextRendererMixin",
+    "TranslatableTextMixin"
   ],
   "client": [
   ],

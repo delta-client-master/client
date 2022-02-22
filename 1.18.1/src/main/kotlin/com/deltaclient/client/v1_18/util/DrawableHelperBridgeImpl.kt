@@ -1,8 +1,9 @@
 package com.deltaclient.client.v1_18.util
 
 import com.deltaclient.common.bridge.render.IMatrixStackBridge
+import com.deltaclient.common.bridge.texture.ISpriteBridge
+import com.deltaclient.common.bridge.util.IDrawableHelperBridge
 import com.deltaclient.common.ext.cast
-import com.deltaclient.common.util.IDrawableHelperBridge
 import com.mojang.blaze3d.systems.RenderSystem
 import net.minecraft.client.gui.DrawableHelper
 import net.minecraft.client.render.BufferRenderer
@@ -10,6 +11,8 @@ import net.minecraft.client.render.GameRenderer
 import net.minecraft.client.render.Tessellator
 import net.minecraft.client.render.VertexFormat.DrawMode
 import net.minecraft.client.render.VertexFormats
+import net.minecraft.client.texture.Sprite
+import net.minecraft.util.Identifier
 import net.minecraft.util.math.Matrix4f
 
 object DrawableHelperBridgeImpl : IDrawableHelperBridge, DrawableHelper() {
@@ -56,5 +59,28 @@ object DrawableHelperBridgeImpl : IDrawableHelperBridge, DrawableHelper() {
         BufferRenderer.draw(bufferBuilder)
         RenderSystem.enableTexture()
         RenderSystem.disableBlend()
+    }
+
+    override fun drawSprite(
+        matrices: IMatrixStackBridge, x: Int, y: Int, width: Int, height: Int, sprite: ISpriteBridge
+    ) {
+        RenderSystem.setShaderTexture(0, sprite.atlas.cast<Identifier>())
+        RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f)
+        drawSprite(matrices.cast(), x, y, 0, width, height, sprite.cast())
+    }
+
+    override fun drawTexture(
+        matrices: IMatrixStackBridge,
+        x: Int,
+        y: Int,
+        z: Int,
+        u: Float,
+        v: Float,
+        width: Int,
+        height: Int,
+        textureWidth: Int,
+        textureHeight: Int
+    ) {
+        drawTexture(matrices.cast(), x, y, z, u, v, width, height, textureWidth, textureHeight)
     }
 }

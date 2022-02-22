@@ -5,8 +5,10 @@
   "compatibilityLevel": "JAVA_17",
   "mixins": [
     "ClientPlayerEntityMixin",
+    "IdentifierMixin",
     "InGameHudMixin",
     "LanguageManagerMixin",
+    "LivingEntityMixin",
     "Matrix4fMixin",
     "MatrixStackEntryMixin",
     "MatrixStackMixin",
@@ -14,7 +16,13 @@
     "MouseMixin",
     "ScreenMixin",
     "SessionMixin",
-    "TextRendererMixin"
+    "SpriteMixin",
+    "StatusEffectInstanceMixin",
+    "StatusEffectMixin",
+    "StatusEffectSpriteManagerMixin",
+    "TextMixin",
+    "TextRendererMixin",
+    "TranslatableTextMixin"
   ],
   "client": [
   ],

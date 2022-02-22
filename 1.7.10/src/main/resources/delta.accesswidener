@@ -1,5 +1,7 @@
 accessWidener v1 named
 
+accessible method net/minecraft/client/texture/Sprite <init> (Ljava/lang/String;)V
+
 accessible field net/minecraft/client/MinecraftClient session Lnet/minecraft/client/util/Session;
 mutable field net/minecraft/client/MinecraftClient session Lnet/minecraft/client/util/Session;
 

@@ -1,7 +1,9 @@
 package com.deltaclient.client.v1_7.mixin;
 
+import com.deltaclient.client.v1_7.language.I18nBridgeImpl;
 import com.deltaclient.client.v1_7.session.SessionFactory;
-import com.deltaclient.client.v1_7.util.DrawableHelperBridgeImpl;
+import com.deltaclient.client.v1_7.texture.SpriteEffectSpriteManagerImpl;
+import com.deltaclient.client.v1_7.render.DrawableHelperBridgeImpl;
 import com.deltaclient.client.v1_7.util.LWJGLDisplayImpl;
 import com.deltaclient.common.Delta;
 import com.deltaclient.common.bridge.game.IMinecraftClientBridge;
@@ -9,6 +11,7 @@ import com.deltaclient.common.bridge.lang.ILanguageManagerBridge;
 import com.deltaclient.common.bridge.player.IClientPlayerEntityBridge;
 import com.deltaclient.common.bridge.render.ITextRendererBridge;
 import com.deltaclient.common.bridge.session.ISessionBridge;
+import com.deltaclient.common.bridge.texture.IStatusEffectSpriteManagerBridge;
 import net.minecraft.class_481;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
@@ -25,19 +28,15 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(MinecraftClient.class)
 public class MinecraftClientMixin implements IMinecraftClientBridge {
     @Shadow
-    public class_481 field_3805;
-
+    private static int currentFps;
     @Shadow
-    private LanguageManager languageManager;
-
+    public class_481 field_3805;
     @Shadow
     public Session session;
-
-    @Shadow
-    private static int currentFps;
-
     @Shadow
     public TextRenderer textRenderer;
+    @Shadow
+    private LanguageManager languageManager;
 
     @Inject(method = "initializeGame", at = @At("HEAD"))
     void initializeGameHead(CallbackInfo ci) {
@@ -45,6 +44,7 @@ public class MinecraftClientMixin implements IMinecraftClientBridge {
         Delta.sessionFactory = SessionFactory.INSTANCE;
         Delta.lwjglDisplay = new LWJGLDisplayImpl();
         Delta.drawableHelper = DrawableHelperBridgeImpl.INSTANCE;
+        Delta.i18nBridge = I18nBridgeImpl.INSTANCE;
     }
 
     @Inject(method = "initializeGame", at = @At("RETURN"))
@@ -88,5 +88,11 @@ public class MinecraftClientMixin implements IMinecraftClientBridge {
     @Override
     public ITextRendererBridge bridge$getTextRenderer() {
         return (ITextRendererBridge) textRenderer;
+    }
+
+    @NotNull
+    @Override
+    public IStatusEffectSpriteManagerBridge bridge$getStatusEffectSpriteManager() {
+        return SpriteEffectSpriteManagerImpl.INSTANCE;
     }
 }
