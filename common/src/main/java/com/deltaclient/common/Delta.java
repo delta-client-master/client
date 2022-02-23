@@ -1,6 +1,6 @@
 package com.deltaclient.common;
 
-import com.deltaclient.common.bridge.game.IMinecraftClientBridge;
+import com.deltaclient.common.bridge.client.IMinecraftClientBridge;
 import com.deltaclient.common.bridge.language.II18nBridge;
 import com.deltaclient.common.bridge.session.ISessionBridge;
 import com.deltaclient.common.bridge.session.ISessionFactory;

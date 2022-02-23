@@ -1,7 +1,7 @@
 package com.deltaclient.common.command
 
 import com.deltaclient.common.Delta.mc
-import com.deltaclient.common.bridge.player.IClientPlayerEntityBridge
+import com.deltaclient.common.bridge.entity.IClientPlayerEntityBridge
 import com.deltaclient.common.event.EventBus
 import com.deltaclient.common.event.impl.ChatMessageSendEvent
 import dev.lillian.bonk.core.annotation.Sender

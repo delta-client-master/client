@@ -1,6 +1,6 @@
 package com.deltaclient.common.command.impl
 
-import com.deltaclient.common.bridge.player.IClientPlayerEntityBridge
+import com.deltaclient.common.bridge.entity.IClientPlayerEntityBridge
 import com.deltaclient.common.feature.AbstractDraggableHUDFeature
 import com.deltaclient.common.feature.property.AbstractProperty
 import com.deltaclient.common.feature.property.PropertyService

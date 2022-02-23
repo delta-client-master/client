@@ -2,7 +2,7 @@ package com.deltaclient.common.feature.statuseffect
 
 import com.deltaclient.common.Delta
 import com.deltaclient.common.Delta.mc
-import com.deltaclient.common.bridge.render.IMatrixStackBridge
+import com.deltaclient.common.bridge.math.IMatrixStackBridge
 import com.deltaclient.common.event.impl.RenderOverlayEvent
 import com.deltaclient.common.feature.AbstractDraggableHUDFeature
 import com.deltaclient.common.feature.FeatureCategory

@@ -1,7 +1,7 @@
 package com.deltaclient.client.v1_7.render
 
 import com.deltaclient.client.v1_7.texture.CustomSprite
-import com.deltaclient.common.bridge.render.IMatrixStackBridge
+import com.deltaclient.common.bridge.math.IMatrixStackBridge
 import com.deltaclient.common.bridge.texture.ISpriteBridge
 import com.deltaclient.common.bridge.util.IDrawableHelperBridge
 import com.deltaclient.common.ext.cast

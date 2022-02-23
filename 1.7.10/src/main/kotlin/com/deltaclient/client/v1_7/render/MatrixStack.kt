@@ -1,7 +1,7 @@
 package com.deltaclient.client.v1_7.render
 
-import com.deltaclient.common.bridge.render.IMatrixStackBridge
-import com.deltaclient.common.bridge.render.IMatrixStackEntryBridge
+import com.deltaclient.common.bridge.math.IMatrixStackBridge
+import com.deltaclient.common.bridge.math.IMatrixStackEntryBridge
 import com.mojang.blaze3d.platform.GLX
 import org.lwjgl.opengl.GL11
 

@@ -1,6 +1,6 @@
 package com.deltaclient.common.command
 
-import com.deltaclient.common.bridge.player.IClientPlayerEntityBridge
+import com.deltaclient.common.bridge.entity.IClientPlayerEntityBridge
 import dev.lillian.bonk.core.argument.CommandArg
 import dev.lillian.bonk.core.executor.CommandExecutor
 import dev.lillian.bonk.core.provider.ArgumentProvider

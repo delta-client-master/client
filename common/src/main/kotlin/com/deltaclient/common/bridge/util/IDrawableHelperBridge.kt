@@ -1,6 +1,6 @@
 package com.deltaclient.common.bridge.util
 
-import com.deltaclient.common.bridge.render.IMatrixStackBridge
+import com.deltaclient.common.bridge.math.IMatrixStackBridge
 import com.deltaclient.common.bridge.texture.ISpriteBridge
 
 @Suppress("INAPPLICABLE_JVM_NAME")
