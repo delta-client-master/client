@@ -15,7 +15,23 @@ class ArmorStatusHUDFeature : AbstractDraggableHUDFeature() {
     }
 
     override fun calculateBounds(matrices: IMatrixStackBridge): Pair<Float, Float> {
-        return Pair(0F, 0F)
+        var width = 0F
+        var height = 0F
+
+        for (stack in mc.player!!.inventory.armor.reversed()) {
+            if (stack.item == null) {
+                continue
+            }
+
+            val textWidth = mc.textRenderer.getWidth("${stack.maxDamage - stack.damage}/${stack.maxDamage}") + 17
+            if (textWidth > width) {
+                width = textWidth.toFloat()
+            }
+
+            height += 16
+        }
+
+        return Pair(width, height)
     }
 
     override fun drawFeature(event: RenderOverlayEvent) {
@@ -25,12 +41,12 @@ class ArmorStatusHUDFeature : AbstractDraggableHUDFeature() {
                 continue
             }
 
-            mc.itemRenderer.renderInGui(stack, x.roundToInt(), currY.roundToInt())
+            mc.itemRenderer.renderInGui(stack, x.roundToInt() - 1, currY.roundToInt())
             mc.textRenderer.draw(
                 event.matrices,
                 "${stack.maxDamage - stack.damage}/${stack.maxDamage}",
-                x + 16,
-                currY,
+                x + 17,
+                currY + 4,
                 Color.white.rgb
             )
 
