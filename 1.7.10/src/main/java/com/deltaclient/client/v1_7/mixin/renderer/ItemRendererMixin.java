@@ -35,7 +35,7 @@ public abstract class ItemRendererMixin implements IItemRendererBridge {
         GLX.gl13MultiTexCoord2f(GLX.lightmapTextureUnit, (float) 240, (float) 240);
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 
-        zOffset = 200;
+        zOffset = -1;
         method_6920(MinecraftClient.getInstance().textRenderer, MinecraftClient.getInstance().getTextureManager(), (ItemStack) stack, x, y);
         method_5178(MinecraftClient.getInstance().textRenderer, MinecraftClient.getInstance().getTextureManager(), (ItemStack) stack, x, y, "");
         zOffset = 0;

@@ -11,7 +11,7 @@ import kotlin.math.roundToInt
 class ArmorStatusHUDFeature : AbstractDraggableHUDFeature() {
     init {
         x = 200F
-        y = 150F
+        y = 175F
     }
 
     override fun calculateBounds(matrices: IMatrixStackBridge): Pair<Float, Float> {
