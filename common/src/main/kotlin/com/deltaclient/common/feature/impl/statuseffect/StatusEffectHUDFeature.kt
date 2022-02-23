@@ -24,7 +24,7 @@ class StatusEffectHUDFeature : AbstractDraggableHUDFeature() {
                 width = 18F + textWidth
             }
 
-            height += 16
+            height += 18
         }
 
         return Pair(width, height)
@@ -36,8 +36,8 @@ class StatusEffectHUDFeature : AbstractDraggableHUDFeature() {
 
         for (effect in mc.player!!.getStatusEffects()) {
             val sprite = mc.statusEffectSpriteManager.getSprite(effect.type)
-            Delta.drawableHelper.drawSprite(event.matrices, currX, currY, 18, 18, sprite)
-            mc.textRenderer.draw(event.matrices, effect.type.name, currX + 18F, currY + 3F, Color.WHITE.rgb)
+            Delta.drawableHelper.drawSprite(event.matrices, currX - 2, currY - 1, 18, 18, sprite)
+            mc.textRenderer.draw(event.matrices, effect.type.name, currX + 18F, currY + 4F, Color.WHITE.rgb)
             currY += 18
         }
     }
