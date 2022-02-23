@@ -47,12 +47,12 @@ public final class Delta {
             String email = creds[0];
             String pass = creds[1];
 
-//            try {
-//                ISessionBridge session = sessionFactory.createMojangSession(email, pass);
-//                mc.bridge$setSession(session);
-//            } catch (AuthenticationException e) {
-//                throw new RuntimeException(e);
-//            }
+            try {
+                ISessionBridge session = sessionFactory.createMojangSession(email, pass);
+                mc.bridge$setSession(session);
+            } catch (AuthenticationException e) {
+                throw new RuntimeException(e);
+            }
         }
 
         // hack to load it
