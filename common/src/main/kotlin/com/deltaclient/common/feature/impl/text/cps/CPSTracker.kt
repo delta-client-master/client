@@ -1,4 +1,4 @@
-package com.deltaclient.common.feature.text.cps
+package com.deltaclient.common.feature.impl.text.cps
 
 import java.util.*
 

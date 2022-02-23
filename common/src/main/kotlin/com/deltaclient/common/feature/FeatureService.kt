@@ -2,10 +2,11 @@ package com.deltaclient.common.feature
 
 import com.deltaclient.common.event.EventBus
 import com.deltaclient.common.event.impl.RenderOverlayEvent
+import com.deltaclient.common.feature.impl.armorstatus.ArmorStatusHUDFeature
+import com.deltaclient.common.feature.impl.statuseffect.StatusEffectHUDFeature
+import com.deltaclient.common.feature.impl.text.FPSTextFeature
+import com.deltaclient.common.feature.impl.text.cps.CPSTextFeature
 import com.deltaclient.common.feature.property.PropertyService
-import com.deltaclient.common.feature.statuseffect.StatusEffectHUDFeature
-import com.deltaclient.common.feature.text.FPSTextFeature
-import com.deltaclient.common.feature.text.cps.CPSTextFeature
 
 // temp solution to get something working
 object FeatureService {
@@ -21,6 +22,7 @@ object FeatureService {
         register(FPSTextFeature())
         register(CPSTextFeature())
         register(StatusEffectHUDFeature())
+        register(ArmorStatusHUDFeature())
     }
 
     private fun register(feature: IFeature) {

@@ -1,4 +1,4 @@
-package com.deltaclient.common.feature.statuseffect
+package com.deltaclient.common.feature.impl.statuseffect
 
 import com.deltaclient.common.Delta
 import com.deltaclient.common.Delta.mc

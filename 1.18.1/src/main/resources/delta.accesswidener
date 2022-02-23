@@ -5,3 +5,4 @@ mutable field net/minecraft/client/MinecraftClient session Lnet/minecraft/client
 
 extendable class net/minecraft/client/util/math/MatrixStack$Entry
 extendable class net/minecraft/util/math/Matrix4f
+extendable class net/minecraft/item/ItemStack

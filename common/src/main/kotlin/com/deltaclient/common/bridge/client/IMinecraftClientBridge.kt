@@ -3,6 +3,7 @@ package com.deltaclient.common.bridge.client
 import com.deltaclient.common.bridge.entity.IClientPlayerEntityBridge
 import com.deltaclient.common.bridge.font.ITextRendererBridge
 import com.deltaclient.common.bridge.language.ILanguageManagerBridge
+import com.deltaclient.common.bridge.render.IItemRendererBridge
 import com.deltaclient.common.bridge.session.ISessionBridge
 import com.deltaclient.common.bridge.texture.IStatusEffectSpriteManagerBridge
 
@@ -29,4 +30,7 @@ interface IMinecraftClientBridge {
 
     @get:JvmName("bridge\$getStatusEffectSpriteManager")
     val statusEffectSpriteManager: IStatusEffectSpriteManagerBridge
+
+    @get:JvmName("bridge\$getItemRenderer")
+    val itemRenderer: IItemRendererBridge
 }

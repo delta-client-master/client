@@ -1,4 +1,4 @@
-package com.deltaclient.common.feature.text
+package com.deltaclient.common.feature.impl.text
 
 import com.deltaclient.common.Delta
 import com.deltaclient.common.feature.AbstractTextFeature

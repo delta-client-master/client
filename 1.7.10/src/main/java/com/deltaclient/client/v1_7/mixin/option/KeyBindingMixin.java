@@ -1,6 +1,6 @@
 package com.deltaclient.client.v1_7.mixin.option;
 
-import com.deltaclient.common.feature.text.cps.CPSTracker;
+import com.deltaclient.common.feature.impl.text.cps.CPSTracker;
 import net.minecraft.client.options.KeyBinding;
 import net.minecraft.util.collection.IntObjectStorage;
 import org.spongepowered.asm.mixin.Final;

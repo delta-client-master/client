@@ -1,6 +1,6 @@
 package com.deltaclient.client.v1_18.mixin.client;
 
-import com.deltaclient.common.feature.text.cps.CPSTracker;
+import com.deltaclient.common.feature.impl.text.cps.CPSTracker;
 import net.minecraft.client.Mouse;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

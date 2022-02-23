@@ -1,4 +1,4 @@
-package com.deltaclient.common.feature.text.cps
+package com.deltaclient.common.feature.impl.text.cps
 
 import com.deltaclient.common.feature.AbstractTextFeature
 import com.deltaclient.common.feature.FeatureCategory
