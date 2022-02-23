@@ -21,7 +21,7 @@ dependencies {
     testImplementation(kotlin("test"))
 }
 
-tasks{
+tasks {
     test {
         useJUnitPlatform()
     }

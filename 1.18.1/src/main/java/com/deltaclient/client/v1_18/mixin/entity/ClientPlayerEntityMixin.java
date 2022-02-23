@@ -14,12 +14,12 @@ import java.util.UUID;
 
 @Mixin(ClientPlayerEntity.class)
 public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity implements IClientPlayerEntityBridge {
-    @Shadow
-    public abstract void sendMessage(Text message, boolean actionBar);
-
     public ClientPlayerEntityMixin(ClientWorld world, GameProfile profile) {
         super(world, profile);
     }
+
+    @Shadow
+    public abstract void sendMessage(Text message, boolean actionBar);
 
     @Override
     public @NotNull String bridge$getUsername() {

@@ -51,7 +51,9 @@ public class MinecraftClientMixin implements IMinecraftClientBridge {
     @Final
     private StatusEffectSpriteManager statusEffectSpriteManager;
 
-    @Shadow @Final private ItemRenderer itemRenderer;
+    @Shadow
+    @Final
+    private ItemRenderer itemRenderer;
 
     @Inject(method = "<init>", at = @At("RETURN"))
     void init(RunArgs args, CallbackInfo ci) {
