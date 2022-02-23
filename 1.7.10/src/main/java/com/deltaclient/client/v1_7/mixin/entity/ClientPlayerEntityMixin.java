@@ -1,6 +1,7 @@
 package com.deltaclient.client.v1_7.mixin.entity;
 
 import com.deltaclient.common.bridge.entity.IClientPlayerEntityBridge;
+import com.deltaclient.common.bridge.entity.player.IPlayerInventoryBridge;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.network.ClientPlayerEntity;
@@ -35,5 +36,11 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
     @Override
     public void impl$sendMessage(@NotNull String message) {
         sendMessage(new LiteralText(message));
+    }
+
+    @NotNull
+    @Override
+    public IPlayerInventoryBridge bridge$getInventory() {
+        return (IPlayerInventoryBridge) inventory;
     }
 }

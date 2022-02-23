@@ -6,3 +6,5 @@ accessible field net/minecraft/client/MinecraftClient session Lnet/minecraft/cli
 mutable field net/minecraft/client/MinecraftClient session Lnet/minecraft/client/util/Session;
 
 accessible field net/minecraft/client/options/KeyBinding timesPressed I
+
+extendable class net/minecraft/item/ItemStack

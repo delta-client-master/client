@@ -10,11 +10,13 @@ import com.deltaclient.common.bridge.client.IMinecraftClientBridge;
 import com.deltaclient.common.bridge.entity.IClientPlayerEntityBridge;
 import com.deltaclient.common.bridge.font.ITextRendererBridge;
 import com.deltaclient.common.bridge.language.ILanguageManagerBridge;
+import com.deltaclient.common.bridge.render.IItemRendererBridge;
 import com.deltaclient.common.bridge.session.ISessionBridge;
 import com.deltaclient.common.bridge.texture.IStatusEffectSpriteManagerBridge;
 import net.minecraft.class_481;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
+import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.resource.language.LanguageManager;
 import net.minecraft.client.util.Session;
 import org.jetbrains.annotations.NotNull;
@@ -37,6 +39,7 @@ public class MinecraftClientMixin implements IMinecraftClientBridge {
     public TextRenderer textRenderer;
     @Shadow
     private LanguageManager languageManager;
+    private final ItemRenderer itemRenderer = new ItemRenderer();
 
     @Inject(method = "initializeGame", at = @At("HEAD"))
     void initializeGameHead(CallbackInfo ci) {
@@ -94,5 +97,11 @@ public class MinecraftClientMixin implements IMinecraftClientBridge {
     @Override
     public IStatusEffectSpriteManagerBridge bridge$getStatusEffectSpriteManager() {
         return SpriteEffectSpriteManagerImpl.INSTANCE;
+    }
+
+    @NotNull
+    @Override
+    public IItemRendererBridge bridge$getItemRenderer() {
+        return (IItemRendererBridge) itemRenderer;
     }
 }
