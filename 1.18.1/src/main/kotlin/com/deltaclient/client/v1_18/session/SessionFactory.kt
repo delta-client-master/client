@@ -35,4 +35,15 @@ object SessionFactory : ISessionFactory {
 
         throw InvalidCredentialsException()
     }
+
+    override fun createMicrosoftSession(username: String, uuid: String, token: String): ISessionBridge {
+        return Session(
+            username,
+            uuid,
+            token,
+            Optional.empty(),
+            Optional.empty(),
+            Session.AccountType.MOJANG
+        ).cast()
+    }
 }

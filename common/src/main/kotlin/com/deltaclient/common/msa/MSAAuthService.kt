@@ -1,5 +1,7 @@
 package com.deltaclient.common.msa
 
+import com.deltaclient.common.Delta
+import com.deltaclient.common.bridge.session.ISessionBridge
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.node.JsonNodeFactory
 import com.fasterxml.jackson.databind.node.ObjectNode
@@ -20,7 +22,7 @@ object MSAAuthService {
     private val appID = "3488dae4-fde2-4928-a322-fa3bcef7e45c"
     private val appSecret = "~n87Q~AnTeKd2rAekt6D3YNr0WnDD6q0GNhtp"
 
-    fun doAuth(refreshToken: String?): String {
+    fun doAuth(refreshToken: String?): ISessionBridge? {
         val loginToken = refreshToken ?: manualAuth()
         println("loginToken = $loginToken")
         val liveLogin = loginLive(loginToken, refreshToken != null)
@@ -40,12 +42,19 @@ object MSAAuthService {
                     if (minecraftLogin != null) {
                         val userDetails = getUserdetails(minecraftLogin)
                         println("userDetails = $userDetails")
+                        if (userDetails != null) {
+                            return Delta.sessionFactory.createMicrosoftSession(
+                                userDetails.second,
+                                userDetails.first,
+                                xstsLogin.first
+                            )
+                        }
                     }
                 }
             }
         }
 
-        return "!!"
+        return null
     }
 
     private fun manualAuth(): String {
