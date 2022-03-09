@@ -1,6 +1,6 @@
-package com.deltaclient.client.v1_8.mixin;
+package com.deltaclient.client.v1_8.mixin.language;
 
-import com.deltaclient.common.bridge.lang.ILanguageManagerBridge;
+import com.deltaclient.common.bridge.language.ILanguageManagerBridge;
 import net.minecraft.client.resource.language.LanguageManager;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;

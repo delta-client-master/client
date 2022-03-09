@@ -1,6 +1,5 @@
-package com.deltaclient.client.v1_8.mixin;
+package com.deltaclient.client.v1_8.mixin.hud;
 
-import com.deltaclient.client.v1_8.render.MatrixStack;
 import com.deltaclient.common.event.EventBus;
 import com.deltaclient.common.event.impl.RenderOverlayEvent;
 import net.minecraft.client.gui.hud.InGameHud;
@@ -8,6 +7,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import com.deltaclient.client.v1_8.render.MatrixStack;
 
 @Mixin(InGameHud.class)
 public class InGameHudMixin {

@@ -1,4 +1,4 @@
-package com.deltaclient.client.v1_8.mixin;
+package com.deltaclient.client.v1_8.mixin.gui;
 
 import com.deltaclient.common.event.EventBus;
 import com.deltaclient.common.event.impl.ChatMessageSendEvent;
