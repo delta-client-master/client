@@ -40,6 +40,9 @@ abstract class AbstractDraggableHUDFeature : IFeature {
 
     private fun drawBackground(matrices: IMatrixStackBridge) {
         val bounds = calculateBounds(matrices)
+        if (bounds.first == 0F || bounds.second == 0F) {
+            return
+        }
 
         val x1 = x - bgSize
         val y1 = y - bgSize
