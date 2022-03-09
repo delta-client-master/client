@@ -13,7 +13,6 @@
     "entity.LivingEntityMixin",
     "entity.PlayerInventoryMixin",
     "gui.ChatScreenMixin",
-    "gui.InventoryScreenMixin",
     "hud.InGameHudMixin",
     "item.IItemStackMixin",
     "item.ItemBridge",

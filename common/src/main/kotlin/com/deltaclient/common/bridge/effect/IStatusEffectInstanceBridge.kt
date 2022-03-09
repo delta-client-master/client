@@ -6,5 +6,6 @@ interface IStatusEffectInstanceBridge {
     val type: IStatusEffectBridge
 
     @get:JvmName("bridge\$showIcon")
+    @set:JvmName("bridge\$showIcon")
     var showIcon: Boolean
 }

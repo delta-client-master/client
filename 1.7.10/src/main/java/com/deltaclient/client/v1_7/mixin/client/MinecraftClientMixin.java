@@ -31,6 +31,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class MinecraftClientMixin implements IMinecraftClientBridge {
     @Shadow
     private static int currentFps;
+    private final ItemRenderer itemRenderer = new ItemRenderer();
     @Shadow
     public class_481 field_3805;
     @Shadow
@@ -39,10 +40,9 @@ public class MinecraftClientMixin implements IMinecraftClientBridge {
     public TextRenderer textRenderer;
     @Shadow
     private LanguageManager languageManager;
-    private final ItemRenderer itemRenderer = new ItemRenderer();
 
     @Inject(method = "initializeGame", at = @At("HEAD"))
-    void initializeGameHead(CallbackInfo ci) {
+    private void initializeGameHead(CallbackInfo ci) {
         Delta.mc = this;
         Delta.sessionFactory = SessionFactory.INSTANCE;
         Delta.lwjglDisplay = new LWJGLDisplayImpl();
@@ -51,7 +51,7 @@ public class MinecraftClientMixin implements IMinecraftClientBridge {
     }
 
     @Inject(method = "initializeGame", at = @At("RETURN"))
-    void initializeGame(CallbackInfo ci) {
+    private void initializeGame(CallbackInfo ci) {
         Delta.onGameStart("1.7.10");
     }
 

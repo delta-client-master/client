@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(InGameHud.class)
 public class InGameHudMixin {
     @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/MinecraftClient;getLastFrameDuration()F", shift = At.Shift.BEFORE))
-    void render(MatrixStack matrices, float tickDelta, CallbackInfo ci) {
+    private void render(MatrixStack matrices, float tickDelta, CallbackInfo ci) {
         EventBus.INSTANCE.post(new RenderOverlayEvent((IMatrixStackBridge) matrices, tickDelta));
     }
 }

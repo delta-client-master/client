@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(Screen.class)
 public class ScreenMixin {
     @Inject(method = "sendMessage(Ljava/lang/String;Z)V", at = @At("HEAD"), cancellable = true)
-    void handleChatMessage(String text, boolean toHud, CallbackInfo ci) {
+    private void sendMessage(String text, boolean toHud, CallbackInfo ci) {
         ChatMessageSendEvent event = EventBus.INSTANCE.post(new ChatMessageSendEvent(text));
         if (event.getCancelled()) {
             ci.cancel();

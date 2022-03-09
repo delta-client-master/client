@@ -56,7 +56,7 @@ public class MinecraftClientMixin implements IMinecraftClientBridge {
     private ItemRenderer itemRenderer;
 
     @Inject(method = "<init>", at = @At("RETURN"))
-    void init(RunArgs args, CallbackInfo ci) {
+    private void init(RunArgs args, CallbackInfo ci) {
         Delta.mc = this;
         Delta.sessionFactory = SessionFactory.INSTANCE;
         Delta.lwjglDisplay = new LWJGLDisplayImpl();

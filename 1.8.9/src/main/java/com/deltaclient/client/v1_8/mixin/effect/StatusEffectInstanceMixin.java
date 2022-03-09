@@ -25,6 +25,6 @@ public abstract class StatusEffectInstanceMixin implements IStatusEffectInstance
     }
 
     @Override
-    public void setShowIcon(boolean showIcon) {
+    public void bridge$showIcon(boolean showIcon) {
     }
 }

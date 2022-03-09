@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(Mouse.class)
 public class MouseMixin {
     @Inject(method = "onMouseButton", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;isSpectator()Z", shift = At.Shift.BEFORE))
-    void onMouseButton(long window, int button, int action, int mods, CallbackInfo ci) {
+    private void onMouseButton(long window, int button, int action, int mods, CallbackInfo ci) {
         if (button == 0) {
             CPSTracker.INSTANCE.leftClick();
         } else if (button == 1) {

@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(InGameHud.class)
 public class InGameHudMixin {
     @Inject(method = "method_979", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerInventory;getArmor(I)Lnet/minecraft/item/ItemStack;", shift = At.Shift.AFTER))
-    void render(float bl, boolean i, int j, int par4, CallbackInfo ci) {
+    private void render(float bl, boolean i, int j, int par4, CallbackInfo ci) {
         EventBus.INSTANCE.post(new RenderOverlayEvent(MatrixStack.INSTANCE, bl));
     }
 }

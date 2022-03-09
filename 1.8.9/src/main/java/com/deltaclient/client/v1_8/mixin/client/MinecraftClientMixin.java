@@ -47,7 +47,7 @@ public class MinecraftClientMixin implements IMinecraftClientBridge {
     private ItemRenderer itemRenderer;
 
     @Inject(method = "initializeGame", at = @At("HEAD"))
-    void initializeGameHead(CallbackInfo ci) {
+    private void initializeGameHead(CallbackInfo ci) {
         Delta.mc = this;
         Delta.sessionFactory = SessionFactory.INSTANCE;
         Delta.lwjglDisplay = new LWJGLDisplayImpl();
@@ -56,7 +56,7 @@ public class MinecraftClientMixin implements IMinecraftClientBridge {
     }
 
     @Inject(method = "initializeGame", at = @At("RETURN"))
-    void initializeGame(CallbackInfo ci) {
+    private void initializeGame(CallbackInfo ci) {
         Delta.onGameStart("1.8.9");
     }
 
