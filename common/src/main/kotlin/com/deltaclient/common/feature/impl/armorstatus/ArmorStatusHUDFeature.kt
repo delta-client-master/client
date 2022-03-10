@@ -47,7 +47,7 @@ class ArmorStatusHUDFeature : AbstractDraggableHUDFeature() {
                 "${stack.maxDamage - stack.damage}/${stack.maxDamage}",
                 x + 17,
                 currY + 4,
-                Color.white.rgb
+                textColor.rgb
             )
 
             currY += 16

@@ -12,6 +12,6 @@ abstract class AbstractTextFeature : AbstractDraggableHUDFeature() {
         mc.textRenderer.getWidth(text).toFloat() to mc.textRenderer.getHeight().toFloat()
 
     override fun drawFeature(event: RenderOverlayEvent) {
-        mc.textRenderer.draw(event.matrices, text, x, y, Color.WHITE.rgb)
+        mc.textRenderer.draw(event.matrices, text, x, y, textColor.rgb)
     }
 }

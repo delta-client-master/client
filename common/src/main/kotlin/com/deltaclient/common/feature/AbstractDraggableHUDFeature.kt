@@ -4,6 +4,7 @@ import com.deltaclient.common.Delta
 import com.deltaclient.common.bridge.math.IMatrixStackBridge
 import com.deltaclient.common.event.impl.RenderOverlayEvent
 import com.deltaclient.common.feature.property.impl.BooleanProperty
+import com.deltaclient.common.feature.property.impl.ColorProperty
 import com.deltaclient.common.feature.property.impl.FloatProperty
 import java.awt.Color
 
@@ -19,8 +20,11 @@ abstract class AbstractDraggableHUDFeature : IFeature {
     var width = 0F
     var height = 0F
 
+    var textColor by ColorProperty("Text Color", Color.WHITE)
+
     var drawBg by BooleanProperty("Draw Background", true)
     var bgSize by FloatProperty("Background Size", 3F)
+    var bgColor by ColorProperty("Background Color", Color.BLACK)
 
     fun draw(event: RenderOverlayEvent) {
         event.matrices.push()
@@ -49,7 +53,7 @@ abstract class AbstractDraggableHUDFeature : IFeature {
         val x2 = x + bgSize + bounds.first
         val y2 = y + bgSize + bounds.second
 
-        Delta.drawableHelper.fill(matrices, x1, y1, x2, y2, Color.BLACK.rgb)
+        Delta.drawableHelper.fill(matrices, x1, y1, x2, y2, bgColor.rgb)
     }
 
     // calc width/height of what gets drawn by #drawFeature(RenderOverlayEvent)
