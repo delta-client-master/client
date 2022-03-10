@@ -30,7 +30,7 @@ public class StatusEffectInstanceMixin implements IStatusEffectInstanceBridge {
     }
 
     @Override
-    public void setShowIcon(boolean showIcon) {
+    public void bridge$showIcon(boolean showIcon) {
         this.showIcon = showIcon;
     }
 }
