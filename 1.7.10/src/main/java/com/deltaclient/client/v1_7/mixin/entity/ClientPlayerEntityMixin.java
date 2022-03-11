@@ -43,4 +43,9 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
     public IPlayerInventoryBridge bridge$getInventory() {
         return (IPlayerInventoryBridge) inventory;
     }
+
+    @Override
+    public float bridge$getSaturation() {
+        return hungerManager.getSaturationLevel();
+    }
 }

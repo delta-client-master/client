@@ -5,6 +5,7 @@ import com.deltaclient.common.event.impl.RenderOverlayEvent
 import com.deltaclient.common.feature.impl.armorstatus.ArmorStatusHUDFeature
 import com.deltaclient.common.feature.impl.statuseffect.StatusEffectHUDFeature
 import com.deltaclient.common.feature.impl.text.FPSTextFeature
+import com.deltaclient.common.feature.impl.text.SaturationTextFeature
 import com.deltaclient.common.feature.impl.text.cps.CPSTextFeature
 import com.deltaclient.common.feature.property.PropertyService
 
@@ -23,6 +24,7 @@ object FeatureService {
         register(CPSTextFeature())
         register(StatusEffectHUDFeature())
         register(ArmorStatusHUDFeature())
+        register(SaturationTextFeature())
     }
 
     private fun register(feature: AbstractFeature) {

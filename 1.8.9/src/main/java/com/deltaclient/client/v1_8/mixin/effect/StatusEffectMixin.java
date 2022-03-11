@@ -15,9 +15,9 @@ public class StatusEffectMixin implements IStatusEffectBridge {
     @Nullable
     private String translationKey;
 
-    @NotNull
+    @Nullable
     @Override
     public ITranslatableTextBridge bridge$getName() {
-        return (ITranslatableTextBridge) new TranslatableText(translationKey);
+        return translationKey == null ? null : (ITranslatableTextBridge) new TranslatableText(translationKey);
     }
 }
