@@ -8,6 +8,7 @@ import com.deltaclient.common.bridge.util.IDrawableHelperBridge;
 import com.deltaclient.common.command.CommandRegistry;
 import com.deltaclient.common.command.impl.FeatureCommand;
 import com.deltaclient.common.command.impl.arg.DraggableHUDFeatureArgumentProvider;
+import com.deltaclient.common.config.FeatureConfig;
 import com.deltaclient.common.feature.AbstractDraggableHUDFeature;
 import com.deltaclient.common.feature.FeatureService;
 import com.deltaclient.common.i18n.I18nService;
@@ -15,6 +16,10 @@ import com.deltaclient.common.util.ILWJGLDisplay;
 import com.mojang.authlib.exceptions.AuthenticationException;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * All of this static shit is kinda getting on my nerves :z
+ * TODO(For Lily): CLEAN!
+ */
 public final class Delta {
     public static IMinecraftClientBridge mc;
 
@@ -27,6 +32,8 @@ public final class Delta {
     public static II18nBridge i18nBridge;
 
     public static boolean development = true; // TODO: Use a launch arg or something for this
+
+    public static FeatureService featureService;
 
     private Delta() {
     }
@@ -55,7 +62,13 @@ public final class Delta {
             }
         }
 
-        // hack to load it
-        FeatureService featureService = FeatureService.INSTANCE;
+        // We only want features to load here, I think, could maybe load earlier, but it doesn't matter right now
+        featureService = FeatureService.INSTANCE;
+
+        FeatureConfig.INSTANCE.load();
+    }
+
+    public static void onGameQuit() {
+        FeatureConfig.INSTANCE.save();
     }
 }

@@ -43,7 +43,6 @@ public class MinecraftClientMixin implements IMinecraftClientBridge {
     private LanguageManager languageManager;
 
     @Shadow
-    @Final
     private ItemRenderer itemRenderer;
 
     @Inject(method = "initializeGame", at = @At("HEAD"))
@@ -58,6 +57,11 @@ public class MinecraftClientMixin implements IMinecraftClientBridge {
     @Inject(method = "initializeGame", at = @At("RETURN"))
     private void initializeGame(CallbackInfo ci) {
         Delta.onGameStart("1.8.9");
+    }
+
+    @Inject(method = "stop", at = @At("HEAD"))
+    private void stop(CallbackInfo ci) {
+        Delta.onGameQuit();
     }
 
     @Override

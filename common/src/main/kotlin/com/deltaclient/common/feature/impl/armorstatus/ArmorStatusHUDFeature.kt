@@ -5,10 +5,9 @@ import com.deltaclient.common.bridge.math.IMatrixStackBridge
 import com.deltaclient.common.event.impl.RenderOverlayEvent
 import com.deltaclient.common.feature.AbstractDraggableHUDFeature
 import com.deltaclient.common.feature.FeatureCategory
-import java.awt.Color
 import kotlin.math.roundToInt
 
-class ArmorStatusHUDFeature : AbstractDraggableHUDFeature() {
+class ArmorStatusHUDFeature : AbstractDraggableHUDFeature("Armor Status", FeatureCategory.HUD) {
     init {
         x = 200F
         y = 175F
@@ -53,7 +52,4 @@ class ArmorStatusHUDFeature : AbstractDraggableHUDFeature() {
             currY += 16
         }
     }
-
-    override val name: String = "armorstatus"
-    override val category: FeatureCategory = FeatureCategory.HUD
 }

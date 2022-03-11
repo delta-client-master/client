@@ -216,7 +216,7 @@ object MSAAuthService {
             val view = WebView()
             val engine = view.engine
 
-            engine.loadWorker.stateProperty().addListener { observable, oldValue, newValue ->
+            engine.loadWorker.stateProperty().addListener { _, _, newValue ->
                 if (newValue == Worker.State.SUCCEEDED && engine.location.startsWith("http://localhost")) {
                     Platform.exit()
                 }

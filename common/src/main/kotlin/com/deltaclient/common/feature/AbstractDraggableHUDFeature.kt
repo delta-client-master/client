@@ -10,7 +10,7 @@ import java.awt.Color
 
 // TODO: Implement dragging of features
 
-abstract class AbstractDraggableHUDFeature : IFeature {
+abstract class AbstractDraggableHUDFeature(name: String, category: FeatureCategory) : AbstractFeature(name, category) {
     // X/Y indicating the top left
     var x by FloatProperty("x", 0F)
     var y by FloatProperty("y", 0F)

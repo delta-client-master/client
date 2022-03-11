@@ -10,7 +10,7 @@ import com.deltaclient.common.feature.property.PropertyService
 
 // temp solution to get something working
 object FeatureService {
-    val features = hashSetOf<IFeature>()
+    val features = hashSetOf<AbstractFeature>()
 
     init {
         EventBus.subscribe<RenderOverlayEvent> { event ->
@@ -25,7 +25,7 @@ object FeatureService {
         register(ArmorStatusHUDFeature())
     }
 
-    private fun register(feature: IFeature) {
+    private fun register(feature: AbstractFeature) {
         features.add(feature)
         PropertyService.register(feature)
     }

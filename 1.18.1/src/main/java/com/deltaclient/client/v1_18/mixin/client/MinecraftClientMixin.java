@@ -66,6 +66,11 @@ public class MinecraftClientMixin implements IMinecraftClientBridge {
         Delta.onGameStart("1.18.1");
     }
 
+    @Inject(method = "stop", at = @At("HEAD"))
+    private void stop(CallbackInfo ci) {
+        Delta.onGameQuit();
+    }
+
     @Override
     public @Nullable IClientPlayerEntityBridge bridge$getClientPlayer() {
         return (IClientPlayerEntityBridge) player;
