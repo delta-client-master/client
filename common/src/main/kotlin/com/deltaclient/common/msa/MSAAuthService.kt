@@ -46,7 +46,7 @@ object MSAAuthService {
                             return Delta.sessionFactory.createMicrosoftSession(
                                 userDetails.second,
                                 userDetails.first,
-                                xstsLogin.first
+                                minecraftLogin
                             )
                         }
                     }
