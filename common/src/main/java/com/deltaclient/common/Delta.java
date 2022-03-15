@@ -12,6 +12,7 @@ import com.deltaclient.common.config.FeatureConfig;
 import com.deltaclient.common.feature.AbstractDraggableHUDFeature;
 import com.deltaclient.common.feature.FeatureService;
 import com.deltaclient.common.i18n.I18nService;
+import com.deltaclient.common.msa.MSAAuthService;
 import com.deltaclient.common.util.ILWJGLDisplay;
 import com.mojang.authlib.exceptions.AuthenticationException;
 import org.jetbrains.annotations.NotNull;
@@ -51,11 +52,17 @@ public final class Delta {
 
         if (System.getenv().containsKey("MC_CREDS")) {
             String[] creds = System.getenv("MC_CREDS").split(":");
-            String email = creds[0];
-            String pass = creds[1];
+            String type = creds[0];
 
             try {
-                ISessionBridge session = sessionFactory.createMojangSession(email, pass);
+                ISessionBridge session = null;
+                if (type.equals("mojang")) {
+                    session = sessionFactory.createMojangSession(creds[1], creds[2]);
+                } else if (type.equals("msa")) {
+                    String refresh = creds.length == 1 ? null : creds[1];
+                    session = MSAAuthService.INSTANCE.doAuth(refresh);
+                }
+
                 mc.bridge$setSession(session);
             } catch (AuthenticationException e) {
                 throw new RuntimeException(e);

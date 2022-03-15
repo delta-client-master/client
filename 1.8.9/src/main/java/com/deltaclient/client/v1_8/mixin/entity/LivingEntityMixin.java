@@ -13,16 +13,16 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+@SuppressWarnings({"unchecked", "rawtypes"})
 @Mixin(LivingEntity.class)
 public class LivingEntityMixin implements ILivingEntityBridge {
     @Shadow
     @Final
-    private Map<Integer, StatusEffectInstance> statusEffects;
+    private Map statusEffects;
 
     @NotNull
     @Override
     public Collection<IStatusEffectInstanceBridge> bridge$getStatusEffects() {
-        // uh, we definitely shouldn't have to do this FIXME
-        return (Collection<IStatusEffectInstanceBridge>) statusEffects.values().stream().map(IStatusEffectInstanceBridge.class::cast).collect(Collectors.toList());
+        return (Collection<IStatusEffectInstanceBridge>) statusEffects.values();
     }
 }

@@ -12,7 +12,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.stream.Collectors;
 
-@SuppressWarnings("ALL")
+@SuppressWarnings({"rawtypes", "unchecked"})
 @Mixin(LivingEntity.class)
 public class LivingEntityMixin implements ILivingEntityBridge {
     @Shadow
@@ -22,7 +22,6 @@ public class LivingEntityMixin implements ILivingEntityBridge {
     @NotNull
     @Override
     public Collection<IStatusEffectInstanceBridge> bridge$getStatusEffects() {
-        // uh, we definitely shouldn't have to do this FIXME
-        return (Collection<IStatusEffectInstanceBridge>) field_6797.values().stream().map(IStatusEffectInstanceBridge.class::cast).collect(Collectors.toList());
+        return (Collection<IStatusEffectInstanceBridge>) field_6797.values();
     }
 }
