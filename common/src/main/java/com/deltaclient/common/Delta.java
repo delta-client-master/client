@@ -7,6 +7,7 @@ import com.deltaclient.common.bridge.session.ISessionFactory;
 import com.deltaclient.common.bridge.util.IDrawableHelperBridge;
 import com.deltaclient.common.command.CommandRegistry;
 import com.deltaclient.common.command.impl.FeatureCommand;
+import com.deltaclient.common.command.impl.LoginCommand;
 import com.deltaclient.common.command.impl.arg.DraggableHUDFeatureArgumentProvider;
 import com.deltaclient.common.config.FeatureConfig;
 import com.deltaclient.common.feature.AbstractDraggableHUDFeature;
@@ -45,11 +46,23 @@ public final class Delta {
 
             registry.bind(AbstractDraggableHUDFeature.class).toProvider(new DraggableHUDFeatureArgumentProvider());
             registry.register(new FeatureCommand(), "feature", "f", "feat");
+            registry.register(new LoginCommand(), "login");
         }
 
         I18nService.INSTANCE.load();
         lwjglDisplay.setTitle(I18nService.INSTANCE.translate("client_name") + " " + version);
 
+        // We only want features to load here, I think, could maybe load earlier, but it doesn't matter right now
+        featureService = FeatureService.INSTANCE;
+
+        FeatureConfig.INSTANCE.load();
+    }
+
+    public static void onGameQuit() {
+        FeatureConfig.INSTANCE.save();
+    }
+
+    public static void loginFromEnv() {
         if (System.getenv().containsKey("MC_CREDS")) {
             String[] creds = System.getenv("MC_CREDS").split(":");
             String type = creds[0];
@@ -68,14 +81,5 @@ public final class Delta {
                 throw new RuntimeException(e);
             }
         }
-
-        // We only want features to load here, I think, could maybe load earlier, but it doesn't matter right now
-        featureService = FeatureService.INSTANCE;
-
-        FeatureConfig.INSTANCE.load();
-    }
-
-    public static void onGameQuit() {
-        FeatureConfig.INSTANCE.save();
     }
 }
