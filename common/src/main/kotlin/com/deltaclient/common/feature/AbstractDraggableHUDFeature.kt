@@ -8,8 +8,6 @@ import com.deltaclient.common.feature.property.impl.ColorProperty
 import com.deltaclient.common.feature.property.impl.FloatProperty
 import java.awt.Color
 
-// TODO: Implement dragging of features
-
 abstract class AbstractDraggableHUDFeature(name: String, category: FeatureCategory) : AbstractFeature(name, category) {
     // X/Y indicating the top left
     var x by FloatProperty("x", 0F)
@@ -17,6 +15,8 @@ abstract class AbstractDraggableHUDFeature(name: String, category: FeatureCatego
 
     var scale by FloatProperty("Scale", 1F)
 
+    // TODO: Add some way for this to be set
+    //  Maybe add a PreRender thing, where the bounds are calculated and width/height fields are populated, only for enabled features
     var width = 0F
     var height = 0F
 
