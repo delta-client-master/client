@@ -53,6 +53,6 @@ object I18nService {
 
     fun translate(key: String): String {
         val langMap = languages[currentLang] ?: languages[defaultLang]!!
-        return langMap[key] ?: "???"
+        return langMap[key] ?: key
     }
 }
