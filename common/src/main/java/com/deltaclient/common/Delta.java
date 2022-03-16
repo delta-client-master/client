@@ -41,6 +41,7 @@ public final class Delta {
     }
 
     public static void onGameStart(@NotNull String version) {
+        loginFromEnv();
         if (development) {
             CommandRegistry registry = new CommandRegistry();
 
