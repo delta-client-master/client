@@ -3,6 +3,7 @@ package com.deltaclient.common.feature
 import com.deltaclient.common.event.EventBus
 import com.deltaclient.common.event.impl.RenderOverlayEvent
 import com.deltaclient.common.feature.impl.armorstatus.ArmorStatusHUDFeature
+import com.deltaclient.common.feature.impl.sprint.SprintFeature
 import com.deltaclient.common.feature.impl.statuseffect.StatusEffectHUDFeature
 import com.deltaclient.common.feature.impl.text.FPSTextFeature
 import com.deltaclient.common.feature.impl.text.SaturationTextFeature
@@ -25,10 +26,14 @@ object FeatureService {
         register(StatusEffectHUDFeature())
         register(ArmorStatusHUDFeature())
         register(SaturationTextFeature())
+        register(SprintFeature())
     }
 
     private fun register(feature: AbstractFeature) {
         features.add(feature)
         PropertyService.register(feature)
     }
+
+    fun <T : AbstractFeature> isToggled(featureClass: Class<T>): Boolean =
+        features.find { it::class.java == featureClass }?.enabled ?: false
 }
