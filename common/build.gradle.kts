@@ -28,6 +28,7 @@ dependencies {
     implementation("io.javalin:javalin:4.3.0")
     implementation("com.squareup.okhttp3:okhttp:4.9.3")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.13.2")
+    implementation("com.github.Vatuu:discord-rpc:1.6.2")
 
     testImplementation(kotlin("test"))
 }

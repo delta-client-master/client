@@ -5,5 +5,6 @@ plugins {
 subprojects {
     repositories {
         maven("https://repo.lillian.dev/releases")
+        maven("https://jitpack.io")
     }
 }

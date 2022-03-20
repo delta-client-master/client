@@ -23,9 +23,9 @@ object FeatureService {
 
         register(FPSTextFeature())
         register(CPSTextFeature())
-//        register(StatusEffectHUDFeature())
-//        register(ArmorStatusHUDFeature())
-//        register(SaturationTextFeature())
+        register(StatusEffectHUDFeature())
+        register(ArmorStatusHUDFeature())
+        register(SaturationTextFeature())
         register(SprintFeature())
     }
 

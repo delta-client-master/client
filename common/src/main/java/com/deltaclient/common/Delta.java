@@ -17,13 +17,19 @@ import com.deltaclient.common.msa.MSAAuthService;
 import com.deltaclient.common.socket.WebSocketClient;
 import com.deltaclient.common.util.ILWJGLDisplay;
 import com.mojang.authlib.exceptions.AuthenticationException;
+import net.arikia.dev.drpc.DiscordEventHandlers;
+import net.arikia.dev.drpc.DiscordRichPresence;
 import org.jetbrains.annotations.NotNull;
+
+import static net.arikia.dev.drpc.DiscordRPC.*;
 
 /**
  * All of this static shit is kinda getting on my nerves :z
  * TODO(For Lily): CLEAN!
  */
 public final class Delta {
+    private static final long START_TIMESTAMP = System.currentTimeMillis();
+
     public static IMinecraftClientBridge mc;
 
     public static ISessionFactory sessionFactory;
@@ -60,6 +66,17 @@ public final class Delta {
         FeatureConfig.INSTANCE.load();
         WebSocketClient socket = new WebSocketClient("ws://localhost:8080/auth");
         socket.connect();
+
+        discordInitialize("944053798912024586", new DiscordEventHandlers(), true);
+        discordRegister("944053798912024586", "");
+
+        DiscordRichPresence presence = new DiscordRichPresence.Builder("Playing Minecraft " + version)
+                .setStartTimestamps(START_TIMESTAMP)
+                .setBigImage("client_logo", "Delta Client")
+                .setSmallImage("company_logo", "Delta Studios LLC")
+                .build();
+
+        discordUpdatePresence(presence);
     }
 
     public static void onGameQuit() {
