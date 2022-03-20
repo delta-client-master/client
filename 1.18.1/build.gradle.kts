@@ -9,9 +9,12 @@ version = "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
+    mavenLocal()
 }
 
 dependencies {
+    implementation("com.deltaclient:socket-common:1.0-SNAPSHOT")
+
     minecraft("com.mojang:minecraft:1.18.1")
     mappings("net.fabricmc:yarn:1.18.1+build.22:v2")
     modImplementation("net.fabricmc:fabric-loader:0.13.1")

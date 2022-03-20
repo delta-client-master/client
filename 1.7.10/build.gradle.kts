@@ -9,13 +9,19 @@ version = "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
+    mavenLocal()
     maven("https://maven.legacyfabric.net")
 }
 
 dependencies {
+    implementation("com.deltaclient:socket-common:1.0-SNAPSHOT")
+
     minecraft("com.mojang:minecraft:1.7.10")
     mappings("net.fabricmc:yarn:1.7.10+build.202201302314:v2")
     modImplementation("net.fabricmc:fabric-loader:0.12.12")
+
+    implementation("com.squareup.okhttp3:okhttp:4.9.3")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.13.2")
 
     include(kotlin("stdlib"))
     include(project(":common"))

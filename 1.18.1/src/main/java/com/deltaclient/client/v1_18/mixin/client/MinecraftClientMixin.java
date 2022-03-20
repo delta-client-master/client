@@ -12,9 +12,11 @@ import com.deltaclient.common.bridge.language.ILanguageManagerBridge;
 import com.deltaclient.common.bridge.render.IItemRendererBridge;
 import com.deltaclient.common.bridge.session.ISessionBridge;
 import com.deltaclient.common.bridge.texture.IStatusEffectSpriteManagerBridge;
+import com.mojang.authlib.minecraft.MinecraftSessionService;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.RunArgs;
 import net.minecraft.client.font.TextRenderer;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.resource.language.LanguageManager;
@@ -31,7 +33,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(MinecraftClient.class)
-public class MinecraftClientMixin implements IMinecraftClientBridge {
+public abstract class MinecraftClientMixin implements IMinecraftClientBridge {
     @Shadow
     private static int currentFps;
     @Shadow
@@ -54,6 +56,10 @@ public class MinecraftClientMixin implements IMinecraftClientBridge {
     @Shadow
     @Final
     private ItemRenderer itemRenderer;
+
+    @Shadow public abstract void setScreen(@Nullable Screen screen);
+
+    @Shadow @Final private MinecraftSessionService sessionService;
 
     @Inject(method = "<init>", at = @At("RETURN"))
     private void init(RunArgs args, CallbackInfo ci) {
@@ -82,7 +88,7 @@ public class MinecraftClientMixin implements IMinecraftClientBridge {
         return (ILanguageManagerBridge) languageManager;
     }
 
-    @Nullable
+    @NotNull
     @Override
     public ISessionBridge bridge$getSession() {
         return (ISessionBridge) session;
@@ -119,5 +125,11 @@ public class MinecraftClientMixin implements IMinecraftClientBridge {
     @Override
     public IItemRendererBridge bridge$getItemRenderer() {
         return (IItemRendererBridge) itemRenderer;
+    }
+
+    @NotNull
+    @Override
+    public MinecraftSessionService bridge$getSessionService() {
+        return sessionService;
     }
 }

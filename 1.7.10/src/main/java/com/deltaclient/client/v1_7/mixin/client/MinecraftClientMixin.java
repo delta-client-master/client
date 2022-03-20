@@ -3,6 +3,7 @@ package com.deltaclient.client.v1_7.mixin.client;
 import com.deltaclient.client.v1_7.language.I18nBridgeImpl;
 import com.deltaclient.client.v1_7.render.DrawableHelperBridgeImpl;
 import com.deltaclient.client.v1_7.session.SessionFactory;
+import com.deltaclient.common.socket.WebSocketClient;
 import com.deltaclient.client.v1_7.texture.SpriteEffectSpriteManagerImpl;
 import com.deltaclient.client.v1_7.util.LWJGLDisplayImpl;
 import com.deltaclient.common.Delta;
@@ -13,6 +14,7 @@ import com.deltaclient.common.bridge.language.ILanguageManagerBridge;
 import com.deltaclient.common.bridge.render.IItemRendererBridge;
 import com.deltaclient.common.bridge.session.ISessionBridge;
 import com.deltaclient.common.bridge.texture.IStatusEffectSpriteManagerBridge;
+import com.mojang.authlib.minecraft.MinecraftSessionService;
 import net.minecraft.class_481;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
@@ -21,6 +23,7 @@ import net.minecraft.client.resource.language.LanguageManager;
 import net.minecraft.client.util.Session;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -28,7 +31,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(MinecraftClient.class)
-public class MinecraftClientMixin implements IMinecraftClientBridge {
+public abstract class MinecraftClientMixin implements IMinecraftClientBridge {
     @Shadow
     private static int currentFps;
     private final ItemRenderer itemRenderer = new ItemRenderer();
@@ -40,6 +43,8 @@ public class MinecraftClientMixin implements IMinecraftClientBridge {
     public TextRenderer textRenderer;
     @Shadow
     private LanguageManager languageManager;
+
+    @Shadow @Final private MinecraftSessionService sessionService;
 
     @Inject(method = "initializeGame", at = @At("HEAD"))
     private void initializeGameHead(CallbackInfo ci) {
@@ -71,7 +76,7 @@ public class MinecraftClientMixin implements IMinecraftClientBridge {
         return (ILanguageManagerBridge) languageManager;
     }
 
-    @Nullable
+    @NotNull
     @Override
     public ISessionBridge bridge$getSession() {
         return (ISessionBridge) session;
@@ -108,5 +113,11 @@ public class MinecraftClientMixin implements IMinecraftClientBridge {
     @Override
     public IItemRendererBridge bridge$getItemRenderer() {
         return (IItemRendererBridge) itemRenderer;
+    }
+
+    @NotNull
+    @Override
+    public MinecraftSessionService bridge$getSessionService() {
+        return sessionService;
     }
 }

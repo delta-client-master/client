@@ -13,6 +13,7 @@ import com.deltaclient.common.bridge.language.ILanguageManagerBridge;
 import com.deltaclient.common.bridge.render.IItemRendererBridge;
 import com.deltaclient.common.bridge.session.ISessionBridge;
 import com.deltaclient.common.bridge.texture.IStatusEffectSpriteManagerBridge;
+import com.mojang.authlib.minecraft.MinecraftSessionService;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.network.ClientPlayerEntity;
@@ -45,6 +46,8 @@ public class MinecraftClientMixin implements IMinecraftClientBridge {
     @Shadow
     private ItemRenderer itemRenderer;
 
+    @Shadow @Final private MinecraftSessionService sessionService;
+
     @Inject(method = "initializeGame", at = @At("HEAD"))
     private void initializeGameHead(CallbackInfo ci) {
         Delta.mc = this;
@@ -75,7 +78,7 @@ public class MinecraftClientMixin implements IMinecraftClientBridge {
         return (ILanguageManagerBridge) languageManager;
     }
 
-    @Nullable
+    @NotNull
     @Override
     public ISessionBridge bridge$getSession() {
         return (ISessionBridge) session;
@@ -112,5 +115,11 @@ public class MinecraftClientMixin implements IMinecraftClientBridge {
     @Override
     public IItemRendererBridge bridge$getItemRenderer() {
         return (IItemRendererBridge) itemRenderer;
+    }
+
+    @NotNull
+    @Override
+    public MinecraftSessionService bridge$getSessionService() {
+        return sessionService;
     }
 }

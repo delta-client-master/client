@@ -14,6 +14,7 @@ import com.deltaclient.common.feature.AbstractDraggableHUDFeature;
 import com.deltaclient.common.feature.FeatureService;
 import com.deltaclient.common.i18n.I18nService;
 import com.deltaclient.common.msa.MSAAuthService;
+import com.deltaclient.common.socket.WebSocketClient;
 import com.deltaclient.common.util.ILWJGLDisplay;
 import com.mojang.authlib.exceptions.AuthenticationException;
 import org.jetbrains.annotations.NotNull;
@@ -57,6 +58,8 @@ public final class Delta {
         featureService = FeatureService.INSTANCE;
 
         FeatureConfig.INSTANCE.load();
+        WebSocketClient socket = new WebSocketClient("ws://localhost:8080/auth");
+        socket.connect();
     }
 
     public static void onGameQuit() {

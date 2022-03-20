@@ -6,6 +6,7 @@ import com.deltaclient.common.bridge.language.ILanguageManagerBridge
 import com.deltaclient.common.bridge.render.IItemRendererBridge
 import com.deltaclient.common.bridge.session.ISessionBridge
 import com.deltaclient.common.bridge.texture.IStatusEffectSpriteManagerBridge
+import com.mojang.authlib.minecraft.MinecraftSessionService
 
 @Suppress("INAPPLICABLE_JVM_NAME")
 interface IMinecraftClientBridge {
@@ -17,7 +18,7 @@ interface IMinecraftClientBridge {
 
     @get:JvmName("bridge\$getSession")
     @set:JvmName("bridge\$setSession")
-    var session: ISessionBridge?
+    var session: ISessionBridge
 
     @get:JvmName("bridge\$getWindowHandle")
     val windowHandle: Long
@@ -33,4 +34,7 @@ interface IMinecraftClientBridge {
 
     @get:JvmName("bridge\$getItemRenderer")
     val itemRenderer: IItemRendererBridge
+
+    @get:JvmName("bridge\$getSessionService")
+    val sessionService: MinecraftSessionService
 }
