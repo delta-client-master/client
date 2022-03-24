@@ -30,7 +30,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(MinecraftClient.class)
-public class MinecraftClientMixin implements IMinecraftClientBridge {
+public abstract class MinecraftClientMixin implements IMinecraftClientBridge {
     @Shadow
     private static int currentFps;
     @Shadow
@@ -47,6 +47,10 @@ public class MinecraftClientMixin implements IMinecraftClientBridge {
     private ItemRenderer itemRenderer;
 
     @Shadow @Final private MinecraftSessionService sessionService;
+
+    @Shadow public abstract void stop();
+
+    @Shadow public abstract void scheduleStop();
 
     @Inject(method = "initializeGame", at = @At("HEAD"))
     private void initializeGameHead(CallbackInfo ci) {
@@ -121,5 +125,10 @@ public class MinecraftClientMixin implements IMinecraftClientBridge {
     @Override
     public MinecraftSessionService bridge$getSessionService() {
         return sessionService;
+    }
+
+    @Override
+    public void bridge$close() {
+        scheduleStop();
     }
 }

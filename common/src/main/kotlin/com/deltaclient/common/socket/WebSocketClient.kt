@@ -2,6 +2,7 @@ package com.deltaclient.common.socket
 
 import com.deltaclient.backend.common.packet.PacketProcessor
 import com.deltaclient.backend.common.packet.user.C2SVerificationResponsePacket
+import com.deltaclient.backend.common.packet.user.S2CForceClosePacket
 import com.deltaclient.backend.common.packet.user.S2CVerificationRequestPacket
 import com.deltaclient.backend.common.util.CryptoUtil
 import com.deltaclient.common.Delta.mc
@@ -28,9 +29,8 @@ class WebSocketClient(private val url: String) {
 
                     override fun onMessage(webSocket: WebSocket, bytes: ByteString) {
                         val buffer = bytes.asByteBuffer()
-                        val packet = PacketProcessor.deserialize(buffer)
 
-                        when (packet) {
+                        when (val packet = PacketProcessor.deserialize(buffer)) {
                             is S2CVerificationRequestPacket -> {
                                 val public = packet.publicKey
                                 val secret = CryptoUtil.createNewSharedKey()
@@ -49,6 +49,9 @@ class WebSocketClient(private val url: String) {
                                 val response = C2SVerificationResponsePacket(secret, public, packet.verifyToken)
                                 val serialized = PacketProcessor.serialize(response)
                                 webSocket.send(serialized.array().toByteString())
+                            }
+                            is S2CForceClosePacket -> {
+                                mc.close()
                             }
                         }
                     }

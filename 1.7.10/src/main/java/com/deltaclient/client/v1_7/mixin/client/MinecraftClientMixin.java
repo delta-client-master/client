@@ -3,7 +3,6 @@ package com.deltaclient.client.v1_7.mixin.client;
 import com.deltaclient.client.v1_7.language.I18nBridgeImpl;
 import com.deltaclient.client.v1_7.render.DrawableHelperBridgeImpl;
 import com.deltaclient.client.v1_7.session.SessionFactory;
-import com.deltaclient.common.socket.WebSocketClient;
 import com.deltaclient.client.v1_7.texture.SpriteEffectSpriteManagerImpl;
 import com.deltaclient.client.v1_7.util.LWJGLDisplayImpl;
 import com.deltaclient.common.Delta;
@@ -23,6 +22,7 @@ import net.minecraft.client.resource.language.LanguageManager;
 import net.minecraft.client.util.Session;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.lwjgl.util.Display;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -45,6 +45,8 @@ public abstract class MinecraftClientMixin implements IMinecraftClientBridge {
     private LanguageManager languageManager;
 
     @Shadow @Final private MinecraftSessionService sessionService;
+
+    @Shadow public abstract void scheduleStop();
 
     @Inject(method = "initializeGame", at = @At("HEAD"))
     private void initializeGameHead(CallbackInfo ci) {
@@ -119,5 +121,10 @@ public abstract class MinecraftClientMixin implements IMinecraftClientBridge {
     @Override
     public MinecraftSessionService bridge$getSessionService() {
         return sessionService;
+    }
+
+    @Override
+    public void bridge$close() {
+        scheduleStop();
     }
 }

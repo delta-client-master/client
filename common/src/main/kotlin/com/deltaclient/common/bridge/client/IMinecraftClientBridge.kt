@@ -37,4 +37,8 @@ interface IMinecraftClientBridge {
 
     @get:JvmName("bridge\$getSessionService")
     val sessionService: MinecraftSessionService
+
+    @JvmName("bridge\$close")
+    fun close()
+
 }

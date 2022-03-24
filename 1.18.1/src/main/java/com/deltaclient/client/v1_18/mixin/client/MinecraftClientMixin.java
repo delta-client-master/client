@@ -61,6 +61,10 @@ public abstract class MinecraftClientMixin implements IMinecraftClientBridge {
 
     @Shadow @Final private MinecraftSessionService sessionService;
 
+    @Shadow public abstract void close();
+
+    @Shadow public abstract void scheduleStop();
+
     @Inject(method = "<init>", at = @At("RETURN"))
     private void init(RunArgs args, CallbackInfo ci) {
         Delta.mc = this;
@@ -131,5 +135,10 @@ public abstract class MinecraftClientMixin implements IMinecraftClientBridge {
     @Override
     public MinecraftSessionService bridge$getSessionService() {
         return sessionService;
+    }
+
+    @Override
+    public void bridge$close() {
+        scheduleStop();
     }
 }
