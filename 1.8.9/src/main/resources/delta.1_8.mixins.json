@@ -12,6 +12,7 @@
     "entity.ClientPlayerEntityMixin",
     "entity.LivingEntityMixin",
     "entity.PlayerInventoryMixin",
+    "gui.InventoryScreenMixin",
     "gui.ScreenMixin",
     "hud.InGameHudMixin",
     "item.ItemBridge",

@@ -6,12 +6,15 @@ import com.deltaclient.common.bridge.math.IMatrixStackBridge
 import com.deltaclient.common.event.impl.RenderOverlayEvent
 import com.deltaclient.common.feature.AbstractDraggableHUDFeature
 import com.deltaclient.common.feature.FeatureCategory
+import com.deltaclient.common.feature.property.impl.BooleanProperty
 
 class StatusEffectHUDFeature : AbstractDraggableHUDFeature("Status Effect", FeatureCategory.HUD) {
     init {
         x = 50F
         y = 50F
     }
+
+    var showEffectsInInventory by BooleanProperty("Show Effects In Inventory", false);
 
     override fun calculateBounds(matrices: IMatrixStackBridge): Pair<Float, Float> {
         var width = 0F

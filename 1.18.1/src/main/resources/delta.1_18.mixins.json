@@ -15,6 +15,7 @@
     "entity.PlayerEntityMixin",
     "entity.PlayerInventoryMixin",
     "font.TextRendererMixin",
+    "gui.AbstractInventoryScreenMixin",
     "gui.ScreenMixin",
     "hud.InGameHudMixin",
     "item.ItemMixin",

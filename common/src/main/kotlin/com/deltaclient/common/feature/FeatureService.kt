@@ -11,6 +11,7 @@ import com.deltaclient.common.feature.impl.text.cps.CPSTextFeature
 import com.deltaclient.common.feature.property.PropertyService
 
 // temp solution to get something working
+@Suppress("UNCHECKED_CAST")
 object FeatureService {
     val features = hashSetOf<AbstractFeature>()
 
@@ -32,6 +33,10 @@ object FeatureService {
     private fun register(feature: AbstractFeature) {
         features.add(feature)
         PropertyService.register(feature)
+    }
+
+    fun <T : AbstractFeature> get(featureClass: Class<T>): T {
+        return (features.find { it::class.java == featureClass } as T?)!!
     }
 
     fun <T : AbstractFeature> isToggled(featureClass: Class<T>): Boolean =
