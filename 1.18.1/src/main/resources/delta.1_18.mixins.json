@@ -17,6 +17,7 @@
     "font.TextRendererMixin",
     "gui.AbstractInventoryScreenMixin",
     "gui.ScreenMixin",
+    "hud.ChatHudMixin",
     "hud.InGameHudMixin",
     "item.ItemMixin",
     "item.ItemStackMixin",

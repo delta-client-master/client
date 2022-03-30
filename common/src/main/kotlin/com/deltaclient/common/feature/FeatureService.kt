@@ -3,6 +3,7 @@ package com.deltaclient.common.feature
 import com.deltaclient.common.event.EventBus
 import com.deltaclient.common.event.impl.RenderOverlayEvent
 import com.deltaclient.common.feature.impl.armorstatus.ArmorStatusHUDFeature
+import com.deltaclient.common.feature.impl.chat.ChatFeature
 import com.deltaclient.common.feature.impl.sprint.SprintFeature
 import com.deltaclient.common.feature.impl.statuseffect.StatusEffectHUDFeature
 import com.deltaclient.common.feature.impl.text.FPSTextFeature
@@ -28,6 +29,7 @@ object FeatureService {
         register(ArmorStatusHUDFeature())
         register(SaturationTextFeature())
         register(SprintFeature())
+        register(ChatFeature())
     }
 
     private fun register(feature: AbstractFeature) {
