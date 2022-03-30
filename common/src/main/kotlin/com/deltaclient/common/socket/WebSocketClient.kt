@@ -1,10 +1,10 @@
 package com.deltaclient.common.socket
 
-import com.deltaclient.backend.common.packet.PacketProcessor
-import com.deltaclient.backend.common.packet.user.C2SVerificationResponsePacket
-import com.deltaclient.backend.common.packet.user.S2CForceClosePacket
-import com.deltaclient.backend.common.packet.user.S2CVerificationRequestPacket
-import com.deltaclient.backend.common.util.CryptoUtil
+import com.deltaclient.socket.common.packet.PacketProcessor
+import com.deltaclient.socket.common.packet.user.C2SVerificationResponsePacket
+import com.deltaclient.socket.common.packet.user.S2CForceClosePacket
+import com.deltaclient.socket.common.packet.user.S2CVerificationRequestPacket
+import com.deltaclient.socket.common.util.CryptoUtil
 import com.deltaclient.common.Delta.mc
 import com.mojang.authlib.exceptions.AuthenticationException
 import okhttp3.*
@@ -13,7 +13,6 @@ import okio.ByteString.Companion.toByteString
 import java.util.concurrent.ForkJoinPool
 
 class WebSocketClient(private val url: String) {
-
     private val httpClient = OkHttpClient()
 
     fun connect() {
@@ -50,6 +49,7 @@ class WebSocketClient(private val url: String) {
                                 val serialized = PacketProcessor.serialize(response)
                                 webSocket.send(serialized.array().toByteString())
                             }
+
                             is S2CForceClosePacket -> {
                                 mc.close()
                             }

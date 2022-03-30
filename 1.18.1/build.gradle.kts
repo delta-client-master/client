@@ -13,7 +13,7 @@ repositories {
 }
 
 dependencies {
-    implementation("com.deltaclient:socket-common:1.0-SNAPSHOT")
+    implementation("com.deltaclient:ws-common:1.0")
 
     minecraft("com.mojang:minecraft:1.18.1")
     mappings("net.fabricmc:yarn:1.18.1+build.22:v2")

@@ -23,7 +23,7 @@ dependencies {
     compileOnly("com.mojang:authlib:3.2.38")
     compileOnly("net.fabricmc:sponge-mixin:0.11.1+mixin.0.8.5")
 
-    implementation("com.deltaclient:socket-common:1.0-SNAPSHOT")
+    implementation("com.deltaclient:ws-common:1.0")
     implementation("dev.lillian.bonk:core:1.0")
     implementation("io.javalin:javalin:4.3.0")
     implementation("com.squareup.okhttp3:okhttp:4.9.3")
