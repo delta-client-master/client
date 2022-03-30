@@ -235,7 +235,3 @@ object MSAAuthService {
         }
     }
 }
-
-fun main() {
-    MSAAuthService.doAuth()
-}
