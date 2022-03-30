@@ -94,7 +94,7 @@ public final class Delta {
                     session = sessionFactory.createMojangSession(creds[1], creds[2]);
                 } else if (type.equals("msa")) {
                     String refresh = creds.length == 1 ? null : creds[1];
-                    session = MSAAuthService.INSTANCE.doAuth(refresh);
+                    session = MSAAuthService.INSTANCE.doAuth(refresh, null);
                 }
 
                 mc.bridge$setSession(session);

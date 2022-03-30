@@ -19,11 +19,8 @@ import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
 
 object MSAAuthService {
-    private val appID = "3488dae4-fde2-4928-a322-fa3bcef7e45c"
-    private val appSecret = "~n87Q~AnTeKd2rAekt6D3YNr0WnDD6q0GNhtp"
-
-    fun doAuth(refreshToken: String?): ISessionBridge? {
-        val loginToken = refreshToken ?: manualAuth()
+    fun doAuth(refreshToken: String? = null, liveToken: String? = null): ISessionBridge? {
+        val loginToken = liveToken ?: (refreshToken ?: manualAuth())
         println("loginToken = $loginToken")
         val liveLogin = loginLive(loginToken, refreshToken != null)
         println("liveLogin = $liveLogin")
@@ -71,15 +68,17 @@ object MSAAuthService {
      */
     private fun loginLive(token: String, refresh: Boolean): Pair<String, String>? {
         val client = OkHttpClient()
-        val requestBody = FormBody.Builder().addEncoded("client_id", appID)
+        val requestBody = FormBody.Builder().addEncoded("client_id", "00000000402b5328")
             .addEncoded(if (refresh) "refresh_token" else "code", token)
             .addEncoded("grant_type", if (refresh) "refresh_token" else "authorization_code")
-            .addEncoded("redirect_uri", "http://localhost:6969/auth")
-            .addEncoded("scope", "XboxLive.signin offline_access").addEncoded("client_secret", appSecret).build()
+            .addEncoded("scope", "service::user.auth.xboxlive.com::MBI_SSL")
+            .addEncoded("redirect_uri", "https://login.live.com/oauth20_desktop.srf")
+            .build()
         val request = Request.Builder().post(requestBody).url("https://login.live.com/oauth20_token.srf").build()
 
         client.newCall(request).execute().use {
             if (it.code != 200) {
+                println(it.body!!.string())
                 return null
             }
 
@@ -94,14 +93,15 @@ object MSAAuthService {
      */
     private fun loginXbox(accessToken: String): String? {
         val requestBody = ObjectNode(JsonNodeFactory.instance)
-        val bodyProps = ObjectNode(JsonNodeFactory.instance)
-        bodyProps.put("AuthMethod", "RPS")
-        bodyProps.put("RpsTicket", "d=$accessToken")
-        bodyProps.put("SiteName", "user.auth.xboxlive.com")
 
-        requestBody.set<ObjectNode>("Properties", bodyProps)
-        requestBody.put("TokenType", "JWT")
         requestBody.put("RelyingParty", "http://auth.xboxlive.com")
+        requestBody.put("TokenType", "JWT")
+
+        val propertiesProps = ObjectNode(JsonNodeFactory.instance)
+        propertiesProps.put("AuthMethod", "RPS")
+        propertiesProps.put("RpsTicket", accessToken)
+        propertiesProps.put("SiteName", "user.auth.xboxlive.com")
+        requestBody.set<ObjectNode>("Properties", propertiesProps)
 
         val client = OkHttpClient()
         val request = Request.Builder()
@@ -217,16 +217,16 @@ object MSAAuthService {
             val engine = view.engine
 
             engine.loadWorker.stateProperty().addListener { _, _, newValue ->
-                if (newValue == Worker.State.SUCCEEDED && engine.location.startsWith("http://localhost")) {
-                    Platform.exit()
+                if(newValue == Worker.State.SUCCEEDED) {
+                    if(engine.location.contains("?code=")) {
+                        val code = engine.location.substringAfter("?code=").substringBefore("&lc")
+                        token = code
+                        Platform.exit()
+                    }
                 }
             }
 
-            engine.load("https://login.live.com/oauth20_authorize.srf?response_type=code&client_id=$appID&redirect_uri=http://localhost:$serverPort/auth&scope=XboxLive.signin+offline_access")
-            println(engine.location)
-            Thread {
-                token = MSAuthLocalServer.waitForToken(serverPort)
-            }.start()
+            engine.load("https://login.live.com/oauth20_authorize.srf?client_id=00000000402b5328&response_type=code&scope=service::user.auth.xboxlive.com::MBI_SSL&redirect_uri=https://login.live.com/oauth20_desktop.srf")
             val box = VBox(view)
             val scene = Scene(box, 680.0, 480.0)
 
@@ -234,4 +234,8 @@ object MSAAuthService {
             stage.show()
         }
     }
+}
+
+fun main() {
+    MSAAuthService.doAuth()
 }
