@@ -197,8 +197,6 @@ object MSAAuthService {
             var token = ""
         }
 
-        val serverPort = 6969
-
         override fun start(stage: Stage) {
             stage.title = "Delta Client MSA Auth"
 

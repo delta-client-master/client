@@ -1,11 +1,11 @@
 package com.deltaclient.common.socket
 
+import com.deltaclient.common.Delta.mc
 import com.deltaclient.socket.common.packet.PacketProcessor
 import com.deltaclient.socket.common.packet.user.C2SVerificationResponsePacket
 import com.deltaclient.socket.common.packet.user.S2CForceClosePacket
 import com.deltaclient.socket.common.packet.user.S2CVerificationRequestPacket
 import com.deltaclient.socket.common.util.CryptoUtil
-import com.deltaclient.common.Delta.mc
 import com.mojang.authlib.exceptions.AuthenticationException
 import okhttp3.*
 import okio.ByteString
@@ -43,6 +43,7 @@ class WebSocketClient(private val url: String) {
                                     mc.sessionService.joinServer(mc.session.profile, mc.session.accessToken, serverId)
                                 } catch (e: AuthenticationException) {
                                     webSocket.close(69, "Authentication error. Aborting websocket connection")
+                                    return
                                 }
 
                                 val response = C2SVerificationResponsePacket(secret, public, packet.verifyToken)
