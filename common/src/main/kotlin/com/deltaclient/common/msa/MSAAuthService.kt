@@ -19,6 +19,9 @@ import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
 
 object MSAAuthService {
+    private val client = OkHttpClient()
+    private val objectMapper = ObjectMapper()
+
     fun doAuth(refreshToken: String? = null, liveToken: String? = null): ISessionBridge? {
         val loginToken = liveToken ?: (refreshToken ?: manualAuth())
         println("loginToken = $loginToken")
@@ -41,9 +44,7 @@ object MSAAuthService {
                         println("userDetails = $userDetails")
                         if (userDetails != null) {
                             return Delta.sessionFactory.createMicrosoftSession(
-                                userDetails.second,
-                                userDetails.first,
-                                minecraftLogin
+                                userDetails.second, userDetails.first, minecraftLogin
                             )
                         }
                     }
@@ -67,13 +68,11 @@ object MSAAuthService {
      * @return Pair containing access token and refresh token if successful, else null
      */
     private fun loginLive(token: String, refresh: Boolean): Pair<String, String>? {
-        val client = OkHttpClient()
         val requestBody = FormBody.Builder().addEncoded("client_id", "00000000402b5328")
             .addEncoded(if (refresh) "refresh_token" else "code", token)
             .addEncoded("grant_type", if (refresh) "refresh_token" else "authorization_code")
             .addEncoded("scope", "service::user.auth.xboxlive.com::MBI_SSL")
-            .addEncoded("redirect_uri", "https://login.live.com/oauth20_desktop.srf")
-            .build()
+            .addEncoded("redirect_uri", "https://login.live.com/oauth20_desktop.srf").build()
         val request = Request.Builder().post(requestBody).url("https://login.live.com/oauth20_token.srf").build()
 
         client.newCall(request).execute().use {
@@ -83,7 +82,7 @@ object MSAAuthService {
             }
 
             val body = it.body!!
-            val root = ObjectMapper().readTree(body.bytes())
+            val root = objectMapper.readTree(body.bytes())
             return root["access_token"].asText() to root["refresh_token"].asText()
         }
     }
@@ -103,11 +102,9 @@ object MSAAuthService {
         propertiesProps.put("SiteName", "user.auth.xboxlive.com")
         requestBody.set<ObjectNode>("Properties", propertiesProps)
 
-        val client = OkHttpClient()
-        val request = Request.Builder()
-            .post(requestBody.toString().toRequestBody(contentType = "application/json".toMediaType()))
-            .url("https://user.auth.xboxlive.com/user/authenticate")
-            .build()
+        val request =
+            Request.Builder().post(requestBody.toString().toRequestBody(contentType = "application/json".toMediaType()))
+                .url("https://user.auth.xboxlive.com/user/authenticate").build()
 
         client.newCall(request).execute().use {
             if (it.code != 200) {
@@ -115,7 +112,7 @@ object MSAAuthService {
             }
 
             val body = it.body!!
-            val root = ObjectMapper().readTree(body.bytes())
+            val root = objectMapper.readTree(body.bytes())
 
             return root["Token"].asText()
         }
@@ -137,11 +134,9 @@ object MSAAuthService {
         requestBody.put("TokenType", "JWT")
         requestBody.put("RelyingParty", "rp://api.minecraftservices.com/")
 
-        val client = OkHttpClient()
-        val request = Request.Builder()
-            .post(requestBody.toString().toRequestBody(contentType = "application/json".toMediaType()))
-            .url("https://xsts.auth.xboxlive.com/xsts/authorize")
-            .build()
+        val request =
+            Request.Builder().post(requestBody.toString().toRequestBody(contentType = "application/json".toMediaType()))
+                .url("https://xsts.auth.xboxlive.com/xsts/authorize").build()
 
         client.newCall(request).execute().use {
             if (it.code != 200) {
@@ -149,7 +144,7 @@ object MSAAuthService {
             }
 
             val body = it.body!!
-            val root = ObjectMapper().readTree(body.bytes())
+            val root = objectMapper.readTree(body.bytes())
 
             return root["Token"].asText() to root["DisplayClaims"]["xui"][0]["uhs"].asText()
         }
@@ -162,11 +157,9 @@ object MSAAuthService {
         val requestBody = ObjectNode(JsonNodeFactory.instance)
         requestBody.put("identityToken", "XBL3.0 x=$uhs;$token")
 
-        val client = OkHttpClient()
-        val request = Request.Builder()
-            .post(requestBody.toString().toRequestBody(contentType = "application/json".toMediaType()))
-            .url("https://api.minecraftservices.com/authentication/login_with_xbox")
-            .build()
+        val request =
+            Request.Builder().post(requestBody.toString().toRequestBody(contentType = "application/json".toMediaType()))
+                .url("https://api.minecraftservices.com/authentication/login_with_xbox").build()
 
         client.newCall(request).execute().use {
             if (it.code != 200) {
@@ -174,7 +167,7 @@ object MSAAuthService {
             }
 
             val body = it.body!!
-            val root = ObjectMapper().readTree(body.bytes())
+            val root = objectMapper.readTree(body.bytes())
 
             return root["access_token"].asText()
         }
@@ -184,12 +177,8 @@ object MSAAuthService {
      * @return Pair containing player uuid and username if successful, else null
      */
     private fun getUserdetails(token: String): Pair<String, String>? {
-        val client = OkHttpClient()
-        val request = Request.Builder()
-            .get()
-            .url("https://api.minecraftservices.com/minecraft/profile")
-            .header("Authorization", "Bearer $token")
-            .build()
+        val request = Request.Builder().get().url("https://api.minecraftservices.com/minecraft/profile")
+            .header("Authorization", "Bearer $token").build()
 
         client.newCall(request).execute().use {
             if (it.code != 200) {
@@ -197,7 +186,7 @@ object MSAAuthService {
             }
 
             val body = it.body!!
-            val root = ObjectMapper().readTree(body.bytes())
+            val root = objectMapper.readTree(body.bytes())
 
             return root["id"].asText() to root["name"].asText()
         }
@@ -217,8 +206,8 @@ object MSAAuthService {
             val engine = view.engine
 
             engine.loadWorker.stateProperty().addListener { _, _, newValue ->
-                if(newValue == Worker.State.SUCCEEDED) {
-                    if(engine.location.contains("?code=")) {
+                if (newValue == Worker.State.SUCCEEDED) {
+                    if (engine.location.contains("?code=")) {
                         val code = engine.location.substringAfter("?code=").substringBefore("&lc")
                         token = code
                         Platform.exit()
