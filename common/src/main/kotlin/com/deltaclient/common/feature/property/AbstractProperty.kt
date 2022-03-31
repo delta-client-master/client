@@ -2,10 +2,22 @@ package com.deltaclient.common.feature.property
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ObjectNode
+import java.util.function.Consumer
 import kotlin.reflect.KProperty
 
-abstract class AbstractProperty<T>(val name: String) {
-    abstract var value: T
+abstract class AbstractProperty<T>(val name: String, default: T) {
+    private var onValueChangeConsumer: Consumer<T>? = null
+
+    var value: T = default
+        set(value) {
+            field = value
+            onValueChangeConsumer?.accept(value)
+        }
+
+    fun onValueChange(consumer: Consumer<T>): AbstractProperty<T> {
+        onValueChangeConsumer = consumer
+        return this
+    }
 
     abstract fun serialize(propertiesNode: ObjectNode)
 

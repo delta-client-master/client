@@ -4,7 +4,7 @@ import com.deltaclient.common.feature.property.AbstractProperty
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ObjectNode
 
-class BooleanProperty(name: String, override var value: Boolean) : AbstractProperty<Boolean>(name) {
+class BooleanProperty(name: String, default: Boolean) : AbstractProperty<Boolean>(name, default) {
     override fun serialize(propertiesNode: ObjectNode) {
         propertiesNode.put(name, value)
     }

@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ObjectNode
 import java.awt.Color
 
-class ColorProperty(name: String, override var value: Color) : AbstractProperty<Color>(name) {
+class ColorProperty(name: String, default: Color) : AbstractProperty<Color>(name, default) {
     override fun serialize(propertiesNode: ObjectNode) {
         propertiesNode.put(name, value.rgb)
     }
