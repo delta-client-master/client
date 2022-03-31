@@ -4,7 +4,7 @@ import com.deltaclient.common.event.EventBus
 import com.deltaclient.common.event.impl.RenderOverlayEvent
 import com.deltaclient.common.feature.impl.armorstatus.ArmorStatusHUDFeature
 import com.deltaclient.common.feature.impl.chat.ChatFeature
-import com.deltaclient.common.feature.impl.sprint.SprintFeature
+import com.deltaclient.common.feature.impl.actiontoggle.ActionToggleFeature
 import com.deltaclient.common.feature.impl.statuseffect.StatusEffectHUDFeature
 import com.deltaclient.common.feature.impl.text.FPSTextFeature
 import com.deltaclient.common.feature.impl.text.SaturationTextFeature
@@ -28,7 +28,7 @@ object FeatureService {
         register(StatusEffectHUDFeature())
         register(ArmorStatusHUDFeature())
         register(SaturationTextFeature())
-        register(SprintFeature())
+        register(ActionToggleFeature())
         register(ChatFeature())
     }
 

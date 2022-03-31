@@ -3,7 +3,7 @@ package com.deltaclient.client.v1_8.mixin.entity;
 import com.deltaclient.common.bridge.entity.IClientPlayerEntityBridge;
 import com.deltaclient.common.bridge.entity.player.IPlayerInventoryBridge;
 import com.deltaclient.common.feature.FeatureService;
-import com.deltaclient.common.feature.impl.sprint.SprintFeature;
+import com.deltaclient.common.feature.impl.actiontoggle.ActionToggleFeature;
 import com.deltaclient.common.util.BasicLazy;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
@@ -22,7 +22,7 @@ import java.util.UUID;
 
 @Mixin(ClientPlayerEntity.class)
 public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity implements IClientPlayerEntityBridge {
-    private final BasicLazy<SprintFeature> sprintFeature = new BasicLazy<>(() -> FeatureService.INSTANCE.get(SprintFeature.class));
+    private final BasicLazy<ActionToggleFeature> actionToggleFeature = new BasicLazy<>(() -> FeatureService.INSTANCE.get(ActionToggleFeature.class));
 
     public ClientPlayerEntityMixin(World worldIn, GameProfile playerProfile) {
         super(worldIn, playerProfile);
@@ -59,6 +59,6 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
 
     @Redirect(method = "tickMovement", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/options/KeyBinding;isPressed()Z"))
     private boolean isPressedSprintOverride(KeyBinding instance) {
-        return (sprintFeature.get().getEnabled() && sprintFeature.get().getShouldOverrideSprint()) || instance.isPressed();
+        return (actionToggleFeature.get().getEnabled() && actionToggleFeature.get().getShouldOverrideSprint()) || instance.isPressed();
     }
 }
