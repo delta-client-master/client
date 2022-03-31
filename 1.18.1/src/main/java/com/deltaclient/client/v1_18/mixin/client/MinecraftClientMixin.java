@@ -9,6 +9,7 @@ import com.deltaclient.common.bridge.client.IMinecraftClientBridge;
 import com.deltaclient.common.bridge.entity.IClientPlayerEntityBridge;
 import com.deltaclient.common.bridge.font.ITextRendererBridge;
 import com.deltaclient.common.bridge.language.ILanguageManagerBridge;
+import com.deltaclient.common.bridge.option.IGameOptionsBridge;
 import com.deltaclient.common.bridge.render.IItemRendererBridge;
 import com.deltaclient.common.bridge.session.ISessionBridge;
 import com.deltaclient.common.bridge.texture.IStatusEffectSpriteManagerBridge;
@@ -18,6 +19,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.RunArgs;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.client.option.GameOptions;
 import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.resource.language.LanguageManager;
 import net.minecraft.client.texture.StatusEffectSpriteManager;
@@ -63,6 +65,10 @@ public abstract class MinecraftClientMixin implements IMinecraftClientBridge {
 
     @Shadow
     public abstract void scheduleStop();
+
+    @Shadow
+    @Final
+    public GameOptions options;
 
     @Inject(method = "<init>", at = @At("RETURN"))
     private void init(RunArgs args, CallbackInfo ci) {
@@ -140,5 +146,11 @@ public abstract class MinecraftClientMixin implements IMinecraftClientBridge {
     @Override
     public void bridge$close() {
         scheduleStop();
+    }
+
+    @NotNull
+    @Override
+    public IGameOptionsBridge bridge$getOptions() {
+        return (IGameOptionsBridge) options;
     }
 }

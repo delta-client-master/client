@@ -6,6 +6,7 @@
   "mixins": [
     "IdentifierMixin",
     "SessionMixin",
+    "client.KeyboardMixin",
     "client.MinecraftClientMixin",
     "client.MouseMixin",
     "effect.StatusEffectInstanceMixin",
@@ -25,6 +26,8 @@
     "math.Matrix4fMixin",
     "math.MatrixStackEntryMixin",
     "math.MatrixStackMixin",
+    "option.GameOptionsMixin",
+    "option.KeyBindingMixin",
     "renderer.ItemRendererMixin",
     "text.TextMixin",
     "text.TranslatableTextMixin",

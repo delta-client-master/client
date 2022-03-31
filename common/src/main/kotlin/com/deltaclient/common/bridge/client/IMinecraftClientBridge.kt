@@ -3,6 +3,7 @@ package com.deltaclient.common.bridge.client
 import com.deltaclient.common.bridge.entity.IClientPlayerEntityBridge
 import com.deltaclient.common.bridge.font.ITextRendererBridge
 import com.deltaclient.common.bridge.language.ILanguageManagerBridge
+import com.deltaclient.common.bridge.option.IGameOptionsBridge
 import com.deltaclient.common.bridge.render.IItemRendererBridge
 import com.deltaclient.common.bridge.session.ISessionBridge
 import com.deltaclient.common.bridge.texture.IStatusEffectSpriteManagerBridge
@@ -40,4 +41,7 @@ interface IMinecraftClientBridge {
 
     @JvmName("bridge\$close")
     fun close()
+
+    @get:JvmName("bridge\$getOptions")
+    val options: IGameOptionsBridge
 }

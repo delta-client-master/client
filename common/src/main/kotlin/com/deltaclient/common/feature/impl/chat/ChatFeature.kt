@@ -8,7 +8,7 @@ class ChatFeature : AbstractFeature("Chat", FeatureCategory.HUD) {
     val drawBackground by BooleanProperty("Draw Background", false)
 
     init {
-        enabled = true
+        toggle()
     }
 
     override fun onEnable() {

@@ -20,6 +20,8 @@
     "item.ItemStackMixin",
     "language.LanguageManagerMixin",
     "option.KeyBindingMixin",
+    "options.GameOptionsMixin",
+    "options.KeyBindingMixin",
     "renderer.ItemRendererMixin",
     "text.TextMixin",
     "text.TextRendererMixin",

@@ -6,9 +6,20 @@ import java.util.function.Consumer
 object EventBus {
     val subscriptions: MutableMap<Class<*>, MutableSet<Consumer<Any>>> = Collections.synchronizedMap(HashMap())
 
+    private val cachedSubscriptions: MutableMap<Any, Map<Class<*>, MutableSet<Consumer<Any>>>> =
+        Collections.synchronizedMap(HashMap())
+
     fun subscribe(parent: Any) {
-        val handlers = EventFactory.getSubscriptions(parent)
+        val handlers = cachedSubscriptions.getOrPut(parent) { EventFactory.getSubscriptions(parent) }
         subscriptions.putAll(handlers)
+    }
+
+    fun unsubscribe(parent: Any) {
+        val handlers =
+            cachedSubscriptions[parent] ?: return // Won't happen unless unsubscribed before subscribed
+        handlers.forEach { (clazz, subs) ->
+            subscriptions[clazz]?.removeAll(subs)
+        }
     }
 
     @Suppress("UNCHECKED_CAST")

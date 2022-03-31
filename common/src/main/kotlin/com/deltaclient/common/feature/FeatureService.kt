@@ -18,7 +18,7 @@ object FeatureService {
 
     init {
         EventBus.subscribe<RenderOverlayEvent> { event ->
-            features.filterIsInstance<AbstractDraggableHUDFeature>().forEach {
+            features.filterIsInstance<AbstractDraggableHUDFeature>().filter { it.enabled }.forEach {
                 it.draw(event)
             }
         }

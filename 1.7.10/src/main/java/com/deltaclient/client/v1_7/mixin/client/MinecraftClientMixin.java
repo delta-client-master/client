@@ -10,19 +10,25 @@ import com.deltaclient.common.bridge.client.IMinecraftClientBridge;
 import com.deltaclient.common.bridge.entity.IClientPlayerEntityBridge;
 import com.deltaclient.common.bridge.font.ITextRendererBridge;
 import com.deltaclient.common.bridge.language.ILanguageManagerBridge;
+import com.deltaclient.common.bridge.option.IGameOptionsBridge;
 import com.deltaclient.common.bridge.render.IItemRendererBridge;
 import com.deltaclient.common.bridge.session.ISessionBridge;
 import com.deltaclient.common.bridge.texture.IStatusEffectSpriteManagerBridge;
+import com.deltaclient.common.event.EventBus;
+import com.deltaclient.common.event.impl.input.InputType;
+import com.deltaclient.common.event.impl.input.KeyboardInputEvent;
 import com.deltaclient.common.model.GameVersion;
 import com.mojang.authlib.minecraft.MinecraftSessionService;
 import net.minecraft.class_481;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
+import net.minecraft.client.options.GameOptions;
 import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.resource.language.LanguageManager;
 import net.minecraft.client.util.Session;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.lwjgl.input.Keyboard;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -51,6 +57,9 @@ public abstract class MinecraftClientMixin implements IMinecraftClientBridge {
     @Shadow
     public abstract void scheduleStop();
 
+    @Shadow
+    public GameOptions options;
+
     @Inject(method = "initializeGame", at = @At("RETURN"))
     private void initializeGame(CallbackInfo ci) {
         DeltaClient.INSTANCE.onGameStart(
@@ -66,6 +75,12 @@ public abstract class MinecraftClientMixin implements IMinecraftClientBridge {
     @Inject(method = "stop", at = @At("HEAD"))
     private void stop(CallbackInfo ci) {
         DeltaClient.INSTANCE.onGameQuit();
+    }
+
+    @Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/options/KeyBinding;setKeyPressed(IZ)V", ordinal = 1))
+    private void tick(CallbackInfo ci) {
+        int k = Keyboard.getEventKey() == 0 ? Keyboard.getEventCharacter() + 256 : Keyboard.getEventKey();
+        EventBus.INSTANCE.post(new KeyboardInputEvent(k, Keyboard.getEventKeyState() ? InputType.PRESS : InputType.RELEASE));
     }
 
     @Override
@@ -127,5 +142,11 @@ public abstract class MinecraftClientMixin implements IMinecraftClientBridge {
     @Override
     public void bridge$close() {
         scheduleStop();
+    }
+
+    @NotNull
+    @Override
+    public IGameOptionsBridge bridge$getOptions() {
+        return (IGameOptionsBridge) options;
     }
 }
