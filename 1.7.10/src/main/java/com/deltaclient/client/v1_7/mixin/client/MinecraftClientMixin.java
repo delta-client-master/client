@@ -54,7 +54,7 @@ public abstract class MinecraftClientMixin implements IMinecraftClientBridge {
     @Inject(method = "initializeGame", at = @At("RETURN"))
     private void initializeGame(CallbackInfo ci) {
         DeltaClient.INSTANCE.onGameStart(
-                GameVersion.v1_7_10,
+                GameVersion.V1_7_10,
                 this,
                 SessionFactory.INSTANCE,
                 new LWJGLDisplayImpl(),
