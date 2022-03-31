@@ -1,6 +1,6 @@
 package com.deltaclient.common.config
 
-import com.deltaclient.common.Delta
+import com.deltaclient.common.feature.FeatureService
 import com.deltaclient.common.feature.property.PropertyService
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.node.ObjectNode
@@ -32,7 +32,7 @@ object FeatureConfig {
             val name = featureNode["name"].asText()
 
             // TODO: Just store features in a hashmap :shrug:
-            val feature = Delta.featureService.features.find { it.name == name } ?: return
+            val feature = FeatureService.features.find { it.name == name } ?: return
 
             feature.enabled = featureNode["enabled"].booleanValue()
 
@@ -43,7 +43,7 @@ object FeatureConfig {
 
     fun save() {
         val rootNode = objectMapper.createArrayNode()
-        Delta.featureService.features.forEach { feature ->
+        FeatureService.features.forEach { feature ->
             val featureNode = objectMapper.createObjectNode()
             featureNode.put("name", feature.name)
             featureNode.put("enabled", feature.enabled)

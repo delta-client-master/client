@@ -1,6 +1,6 @@
 package com.deltaclient.common.command
 
-import com.deltaclient.common.Delta.mc
+import com.deltaclient.common.DeltaClient.mc
 import com.deltaclient.common.bridge.entity.IClientPlayerEntityBridge
 import com.deltaclient.common.event.EventBus
 import com.deltaclient.common.event.impl.ChatMessageSendEvent

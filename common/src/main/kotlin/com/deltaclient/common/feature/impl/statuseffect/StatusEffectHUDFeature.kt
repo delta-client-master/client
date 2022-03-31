@@ -1,7 +1,7 @@
 package com.deltaclient.common.feature.impl.statuseffect
 
-import com.deltaclient.common.Delta
-import com.deltaclient.common.Delta.mc
+import com.deltaclient.common.DeltaClient.drawableHelper
+import com.deltaclient.common.DeltaClient.mc
 import com.deltaclient.common.bridge.math.IMatrixStackBridge
 import com.deltaclient.common.event.impl.RenderOverlayEvent
 import com.deltaclient.common.feature.AbstractDraggableHUDFeature
@@ -14,7 +14,7 @@ class StatusEffectHUDFeature : AbstractDraggableHUDFeature("Status Effect", Feat
         y = 50F
     }
 
-    var showEffectsInInventory by BooleanProperty("Show Effects In Inventory", false);
+    var showEffectsInInventory by BooleanProperty("Show Effects In Inventory", false)
 
     override fun calculateBounds(matrices: IMatrixStackBridge): Pair<Float, Float> {
         var width = 0F
@@ -41,7 +41,7 @@ class StatusEffectHUDFeature : AbstractDraggableHUDFeature("Status Effect", Feat
             val effectName = effect.type.name ?: continue
 
             val sprite = mc.statusEffectSpriteManager.getSprite(effect.type)
-            Delta.drawableHelper.drawSprite(event.matrices, currX - 2, currY - 1, 18, 18, sprite)
+            drawableHelper.drawSprite(event.matrices, currX - 2, currY - 1, 18, 18, sprite)
             mc.textRenderer.draw(event.matrices, effectName, currX + 18F, currY + 4F, textColor.rgb)
             currY += 18
         }

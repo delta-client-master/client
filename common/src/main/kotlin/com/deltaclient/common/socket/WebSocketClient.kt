@@ -1,6 +1,6 @@
 package com.deltaclient.common.socket
 
-import com.deltaclient.common.Delta.mc
+import com.deltaclient.common.DeltaClient.mc
 import com.deltaclient.socket.common.packet.PacketProcessor
 import com.deltaclient.socket.common.packet.user.C2SVerificationResponsePacket
 import com.deltaclient.socket.common.packet.user.S2CForceClosePacket

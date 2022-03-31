@@ -5,7 +5,7 @@ import com.deltaclient.client.v1_7.render.DrawableHelperBridgeImpl;
 import com.deltaclient.client.v1_7.session.SessionFactory;
 import com.deltaclient.client.v1_7.texture.SpriteEffectSpriteManagerImpl;
 import com.deltaclient.client.v1_7.util.LWJGLDisplayImpl;
-import com.deltaclient.common.Delta;
+import com.deltaclient.common.DeltaClient;
 import com.deltaclient.common.bridge.client.IMinecraftClientBridge;
 import com.deltaclient.common.bridge.entity.IClientPlayerEntityBridge;
 import com.deltaclient.common.bridge.font.ITextRendererBridge;
@@ -13,6 +13,7 @@ import com.deltaclient.common.bridge.language.ILanguageManagerBridge;
 import com.deltaclient.common.bridge.render.IItemRendererBridge;
 import com.deltaclient.common.bridge.session.ISessionBridge;
 import com.deltaclient.common.bridge.texture.IStatusEffectSpriteManagerBridge;
+import com.deltaclient.common.model.GameVersion;
 import com.mojang.authlib.minecraft.MinecraftSessionService;
 import net.minecraft.class_481;
 import net.minecraft.client.MinecraftClient;
@@ -22,7 +23,6 @@ import net.minecraft.client.resource.language.LanguageManager;
 import net.minecraft.client.util.Session;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.lwjgl.util.Display;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -44,27 +44,28 @@ public abstract class MinecraftClientMixin implements IMinecraftClientBridge {
     @Shadow
     private LanguageManager languageManager;
 
-    @Shadow @Final private MinecraftSessionService sessionService;
+    @Shadow
+    @Final
+    private MinecraftSessionService sessionService;
 
-    @Shadow public abstract void scheduleStop();
-
-    @Inject(method = "initializeGame", at = @At("HEAD"))
-    private void initializeGameHead(CallbackInfo ci) {
-        Delta.mc = this;
-        Delta.sessionFactory = SessionFactory.INSTANCE;
-        Delta.lwjglDisplay = new LWJGLDisplayImpl();
-        Delta.drawableHelper = DrawableHelperBridgeImpl.INSTANCE;
-        Delta.i18nBridge = I18nBridgeImpl.INSTANCE;
-    }
+    @Shadow
+    public abstract void scheduleStop();
 
     @Inject(method = "initializeGame", at = @At("RETURN"))
     private void initializeGame(CallbackInfo ci) {
-        Delta.onGameStart("1.7.10");
+        DeltaClient.INSTANCE.onGameStart(
+                GameVersion.v1_7_10,
+                this,
+                SessionFactory.INSTANCE,
+                new LWJGLDisplayImpl(),
+                DrawableHelperBridgeImpl.INSTANCE,
+                I18nBridgeImpl.INSTANCE
+        );
     }
 
     @Inject(method = "stop", at = @At("HEAD"))
     private void stop(CallbackInfo ci) {
-        Delta.onGameQuit();
+        DeltaClient.INSTANCE.onGameQuit();
     }
 
     @Override

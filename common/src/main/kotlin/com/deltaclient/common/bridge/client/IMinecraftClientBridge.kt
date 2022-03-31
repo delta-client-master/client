@@ -40,5 +40,4 @@ interface IMinecraftClientBridge {
 
     @JvmName("bridge\$close")
     fun close()
-
 }

@@ -1,6 +1,6 @@
 package com.deltaclient.common.msa
 
-import com.deltaclient.common.Delta
+import com.deltaclient.common.DeltaClient
 import com.deltaclient.common.bridge.session.ISessionBridge
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.node.JsonNodeFactory
@@ -43,7 +43,7 @@ object MSAAuthService {
                         val userDetails = getUserdetails(minecraftLogin)
                         println("userDetails = $userDetails")
                         if (userDetails != null) {
-                            return Delta.sessionFactory.createMicrosoftSession(
+                            return DeltaClient.sessionFactory.createMicrosoftSession(
                                 userDetails.second, userDetails.first, minecraftLogin
                             )
                         }

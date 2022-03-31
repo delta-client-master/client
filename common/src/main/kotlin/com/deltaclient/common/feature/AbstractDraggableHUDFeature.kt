@@ -1,6 +1,6 @@
 package com.deltaclient.common.feature
 
-import com.deltaclient.common.Delta
+import com.deltaclient.common.DeltaClient.drawableHelper
 import com.deltaclient.common.bridge.math.IMatrixStackBridge
 import com.deltaclient.common.event.impl.RenderOverlayEvent
 import com.deltaclient.common.feature.property.impl.BooleanProperty
@@ -53,7 +53,7 @@ abstract class AbstractDraggableHUDFeature(name: String, category: FeatureCatego
         val x2 = x + bgSize + bounds.first
         val y2 = y + bgSize + bounds.second
 
-        Delta.drawableHelper.fill(matrices, x1, y1, x2, y2, bgColor.rgb)
+        drawableHelper.fill(matrices, x1, y1, x2, y2, bgColor.rgb)
     }
 
     // calc width/height of what gets drawn by #drawFeature(RenderOverlayEvent)

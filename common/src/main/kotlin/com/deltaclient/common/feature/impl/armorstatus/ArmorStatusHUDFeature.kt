@@ -1,6 +1,6 @@
 package com.deltaclient.common.feature.impl.armorstatus
 
-import com.deltaclient.common.Delta.mc
+import com.deltaclient.common.DeltaClient.mc
 import com.deltaclient.common.bridge.math.IMatrixStackBridge
 import com.deltaclient.common.event.impl.RenderOverlayEvent
 import com.deltaclient.common.feature.AbstractDraggableHUDFeature

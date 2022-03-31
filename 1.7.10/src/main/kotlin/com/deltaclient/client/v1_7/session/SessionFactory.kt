@@ -1,6 +1,5 @@
 package com.deltaclient.client.v1_7.session
 
-import com.deltaclient.common.Delta.mc
 import com.deltaclient.common.bridge.session.ISessionBridge
 import com.deltaclient.common.bridge.session.ISessionFactory
 import com.deltaclient.common.ext.cast
@@ -13,7 +12,7 @@ import net.minecraft.client.util.AccountType
 import net.minecraft.client.util.Session
 
 object SessionFactory : ISessionFactory {
-    private val authService = YggdrasilAuthenticationService((mc as MinecraftClient).networkProxy, "")
+    private val authService = YggdrasilAuthenticationService(MinecraftClient.getInstance().networkProxy, "")
 
     override fun createMojangSession(email: String, password: String): ISessionBridge {
         val userAuth = authService.createUserAuthentication(Agent.MINECRAFT) as YggdrasilUserAuthentication

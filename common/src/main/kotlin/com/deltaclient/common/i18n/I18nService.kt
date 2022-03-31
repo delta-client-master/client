@@ -1,6 +1,6 @@
 package com.deltaclient.common.i18n
 
-import com.deltaclient.common.Delta
+import com.deltaclient.common.DeltaClient.mc
 import java.io.ByteArrayOutputStream
 import java.util.zip.ZipInputStream
 
@@ -10,7 +10,7 @@ object I18nService {
 
     private val currentLang: String
         get() {
-            return Delta.mc.languageManager.currentLanguageCode
+            return mc.languageManager.currentLanguageCode
         }
 
     fun load() {
