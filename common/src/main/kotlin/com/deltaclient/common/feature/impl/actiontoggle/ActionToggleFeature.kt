@@ -12,6 +12,8 @@ import java.util.function.Consumer
 class ActionToggleFeature : AbstractFeature("Action Toggle", FeatureCategory.ETC) {
     var shouldOverrideSprint = false
         private set
+    var shouldOverrideSneak = false
+        private set
 
     private val sprint by BooleanProperty("Sprint", true).onValueChange {
         if (!it) {
@@ -19,10 +21,20 @@ class ActionToggleFeature : AbstractFeature("Action Toggle", FeatureCategory.ETC
         }
     }
 
+    private val sneak by BooleanProperty("Sneak", true).onValueChange {
+        if (!it) {
+            shouldOverrideSneak = false
+        }
+    }
+
     @Subscribe(KeyboardInputEvent::class)
     private val onKey: Consumer<KeyboardInputEvent> = Consumer {
         if (sprint && it.type == InputType.PRESS && it.key == mc.options.keySprint.keyCode) {
             shouldOverrideSprint = !shouldOverrideSprint
+        }
+
+        if (sneak && it.type == InputType.PRESS && it.key == mc.options.keySneak.keyCode) {
+            shouldOverrideSneak = !shouldOverrideSneak
         }
     }
 

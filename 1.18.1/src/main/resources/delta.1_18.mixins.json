@@ -20,6 +20,7 @@
     "gui.ScreenMixin",
     "hud.ChatHudMixin",
     "hud.InGameHudMixin",
+    "input.KeyboardInputMixin",
     "item.ItemMixin",
     "item.ItemStackMixin",
     "language.LanguageManagerMixin",

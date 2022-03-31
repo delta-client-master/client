@@ -4,4 +4,7 @@ package com.deltaclient.common.bridge.option
 interface IGameOptionsBridge {
     @get:JvmName("bridge\$getKeySprint")
     val keySprint: IKeyBindingBridge
+
+    @get:JvmName("bridge\$getKeySneak")
+    val keySneak: IKeyBindingBridge
 }
