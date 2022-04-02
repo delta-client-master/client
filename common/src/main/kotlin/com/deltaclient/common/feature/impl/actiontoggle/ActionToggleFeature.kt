@@ -4,6 +4,8 @@ import com.deltaclient.common.DeltaClient.mc
 import com.deltaclient.common.event.annotation.Subscribe
 import com.deltaclient.common.event.impl.input.InputType
 import com.deltaclient.common.event.impl.input.KeyboardInputEvent
+import com.deltaclient.common.event.impl.state.GenericStateEvent
+import com.deltaclient.common.event.impl.state.StateEventType
 import com.deltaclient.common.feature.AbstractFeature
 import com.deltaclient.common.feature.FeatureCategory
 import com.deltaclient.common.feature.property.impl.BooleanProperty
@@ -35,6 +37,18 @@ class ActionToggleFeature : AbstractFeature("Action Toggle", FeatureCategory.ETC
 
         if (sneak && it.type == InputType.PRESS && it.key == mc.options.keySneak.keyCode) {
             shouldOverrideSneak = !shouldOverrideSneak
+        }
+    }
+
+    @Subscribe(GenericStateEvent::class)
+    private val onStateEvent: Consumer<GenericStateEvent> = Consumer {
+        if (it.state) {
+            return@Consumer
+        }
+
+        when (it.type) {
+            StateEventType.SPRINT -> it.state = shouldOverrideSprint
+            StateEventType.SNEAK -> it.state = shouldOverrideSneak
         }
     }
 

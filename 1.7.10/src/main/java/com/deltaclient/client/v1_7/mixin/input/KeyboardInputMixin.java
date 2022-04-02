@@ -1,8 +1,8 @@
 package com.deltaclient.client.v1_7.mixin.input;
 
-import com.deltaclient.common.feature.FeatureService;
-import com.deltaclient.common.feature.impl.actiontoggle.ActionToggleFeature;
-import com.deltaclient.common.util.BasicLazy;
+import com.deltaclient.common.event.EventBus;
+import com.deltaclient.common.event.impl.state.GenericStateEvent;
+import com.deltaclient.common.event.impl.state.StateEventType;
 import net.minecraft.client.input.KeyboardInput;
 import net.minecraft.client.options.KeyBinding;
 import org.spongepowered.asm.mixin.Mixin;
@@ -11,10 +11,8 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(KeyboardInput.class)
 public class KeyboardInputMixin {
-    private final BasicLazy<ActionToggleFeature> actionToggleFeature = new BasicLazy<>(() -> FeatureService.INSTANCE.get(ActionToggleFeature.class));
-
     @Redirect(method = "method_1302", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/options/KeyBinding;isPressed()Z", ordinal = 5))
     private boolean tick(KeyBinding instance) {
-        return (actionToggleFeature.get().getEnabled() && actionToggleFeature.get().getShouldOverrideSneak()) || instance.isPressed();
+        return EventBus.INSTANCE.post(new GenericStateEvent(instance.isPressed(), StateEventType.SNEAK)).getState();
     }
 }
