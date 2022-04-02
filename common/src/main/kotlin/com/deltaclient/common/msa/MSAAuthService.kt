@@ -18,6 +18,10 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
 
+// TODO:
+//  Fix an issue causing you to have to login twice even if the details are correct
+//  I'm not sure what causes it but it doesn't seem to happen on V8 or anything else
+
 object MSAAuthService {
     private val client = OkHttpClient()
     private val objectMapper = ObjectMapper()
