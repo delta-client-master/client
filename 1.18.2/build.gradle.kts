@@ -15,8 +15,8 @@ repositories {
 dependencies {
     implementation("com.deltaclient:ws-common:1.2")
 
-    minecraft("com.mojang:minecraft:1.18.1")
-    mappings("net.fabricmc:yarn:1.18.1+build.22:v2")
+    minecraft("com.mojang:minecraft:1.18.2")
+    mappings("net.fabricmc:yarn:1.18.2+build.2:v2")
     modImplementation("net.fabricmc:fabric-loader:0.13.1")
 
     include(kotlin("stdlib"))

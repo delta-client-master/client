@@ -11,63 +11,51 @@ import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(GameOptions.class)
 public class GameOptionsMixin implements IGameOptionsBridge {
-    @Final
-    @Shadow
-    public KeyBinding keySprint;
+    @Shadow @Final public KeyBinding sprintKey;
 
-    @Shadow
-    @Final
-    public KeyBinding keySneak;
+    @Shadow @Final public KeyBinding sneakKey;
 
-    @Shadow
-    @Final
-    public KeyBinding keyForward;
+    @Shadow @Final public KeyBinding forwardKey;
 
-    @Shadow
-    @Final
-    public KeyBinding keyBack;
+    @Shadow @Final public KeyBinding backKey;
 
-    @Shadow
-    @Final
-    public KeyBinding keyLeft;
+    @Shadow @Final public KeyBinding leftKey;
 
-    @Shadow
-    @Final
-    public KeyBinding keyRight;
+    @Shadow @Final public KeyBinding rightKey;
 
     @NotNull
     @Override
     public IKeyBindingBridge bridge$getKeySprint() {
-        return (IKeyBindingBridge) keySprint;
+        return (IKeyBindingBridge) sprintKey;
     }
 
     @NotNull
     @Override
     public IKeyBindingBridge bridge$getKeySneak() {
-        return (IKeyBindingBridge) keySneak;
+        return (IKeyBindingBridge) sneakKey;
     }
 
     @NotNull
     @Override
     public IKeyBindingBridge bridge$getKeyForward() {
-        return (IKeyBindingBridge) keyForward;
+        return (IKeyBindingBridge) forwardKey;
     }
 
     @NotNull
     @Override
     public IKeyBindingBridge bridge$getKeyBack() {
-        return (IKeyBindingBridge) keyBack;
+        return (IKeyBindingBridge) backKey;
     }
 
     @NotNull
     @Override
     public IKeyBindingBridge bridge$getKeyLeft() {
-        return (IKeyBindingBridge) keyLeft;
+        return (IKeyBindingBridge) leftKey;
     }
 
     @NotNull
     @Override
     public IKeyBindingBridge bridge$getKeyRight() {
-        return (IKeyBindingBridge) keyRight;
+        return (IKeyBindingBridge) rightKey;
     }
 }
