@@ -14,7 +14,7 @@ repositories {
 }
 
 dependencies {
-    implementation("com.deltaclient:ws-common:1.1.1")
+    implementation("com.deltaclient:ws-common:1.2")
 
     minecraft("com.mojang:minecraft:1.7.10")
     mappings("net.fabricmc:yarn:1.7.10+build.202201302314:v2")
