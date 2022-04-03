@@ -15,7 +15,25 @@ public class GameOptionsMixin implements IGameOptionsBridge {
     @Shadow
     public KeyBinding keySprint;
 
-    @Shadow @Final public KeyBinding keySneak;
+    @Shadow
+    @Final
+    public KeyBinding keySneak;
+
+    @Shadow
+    @Final
+    public KeyBinding keyForward;
+
+    @Shadow
+    @Final
+    public KeyBinding keyBack;
+
+    @Shadow
+    @Final
+    public KeyBinding keyLeft;
+
+    @Shadow
+    @Final
+    public KeyBinding keyRight;
 
     @NotNull
     @Override
@@ -27,5 +45,29 @@ public class GameOptionsMixin implements IGameOptionsBridge {
     @Override
     public IKeyBindingBridge bridge$getKeySneak() {
         return (IKeyBindingBridge) keySneak;
+    }
+
+    @NotNull
+    @Override
+    public IKeyBindingBridge bridge$getKeyForward() {
+        return (IKeyBindingBridge) keyForward;
+    }
+
+    @NotNull
+    @Override
+    public IKeyBindingBridge bridge$getKeyBack() {
+        return (IKeyBindingBridge) keyBack;
+    }
+
+    @NotNull
+    @Override
+    public IKeyBindingBridge bridge$getKeyLeft() {
+        return (IKeyBindingBridge) keyLeft;
+    }
+
+    @NotNull
+    @Override
+    public IKeyBindingBridge bridge$getKeyRight() {
+        return (IKeyBindingBridge) keyRight;
     }
 }

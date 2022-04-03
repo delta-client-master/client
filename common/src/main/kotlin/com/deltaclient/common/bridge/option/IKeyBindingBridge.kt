@@ -4,4 +4,10 @@ package com.deltaclient.common.bridge.option
 interface IKeyBindingBridge {
     @get:JvmName("bridge\$getKeyCode")
     val keyCode: Int
+
+    @get:JvmName("bridge\$getKeyName")
+    val name: String
+
+    @get:JvmName("bridge\$isPressed")
+    val pressed: Boolean
 }
