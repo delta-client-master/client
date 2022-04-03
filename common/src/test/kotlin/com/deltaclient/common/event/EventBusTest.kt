@@ -10,7 +10,7 @@ import kotlin.test.assertTrue
 internal class EventBusTest {
     @Test
     fun testSubscribe() {
-        val latch = CountDownLatch(3)
+        val latch = CountDownLatch(2)
         val sub = Sub(latch)
 
         EventBus.subscribe(sub)
@@ -25,11 +25,6 @@ internal class EventBusTest {
     class Sub(private val latch: CountDownLatch) {
         @Subscribe(String::class)
         val fieldSub = Consumer<String> {
-            latch.countDown()
-        }
-
-        @Subscribe(String::class)
-        fun methodSub(int: String) {
             latch.countDown()
         }
     }

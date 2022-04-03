@@ -9,26 +9,16 @@ internal class EventFactoryTest {
     fun testSubscriptions() {
         val subscriptions = EventFactory.getSubscriptions(ThreeSubscriptions())
 
-        // Two different classes
-        assert(subscriptions.size == 2)
+        assert(subscriptions.size == 1)
 
         assert(subscriptions[String::class.java] != null)
-        assert(subscriptions[Int::class.java] != null)
+        assert(subscriptions[Int::class.java] == null)
 
-        assert(subscriptions[String::class.java]!!.size == 2)
-        assert(subscriptions[Int::class.java]!!.size == 1)
+        assert(subscriptions[String::class.java]!!.size == 1)
     }
 
     class ThreeSubscriptions {
         @Subscribe(String::class)
         val consumerSub = Consumer<String> {}
-
-        @Subscribe(String::class)
-        fun methodSub(string: String) {
-        }
-
-        @Subscribe(Int::class)
-        fun methodSubTwo(int: Int) {
-        }
     }
 }
