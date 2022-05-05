@@ -4,7 +4,6 @@ plugins {
 
 subprojects {
     repositories {
-        maven("https://repo.lillian.dev/releases")
         maven("https://jitpack.io")
         maven("https://nexus.deltaclient.com/repository/internal/") {
             val deltaNxUser: String by project

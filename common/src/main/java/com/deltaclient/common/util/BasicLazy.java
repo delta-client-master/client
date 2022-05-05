@@ -8,7 +8,7 @@ public final class BasicLazy<T> {
     private final Supplier<T> supplier;
     private T stored;
 
-    public BasicLazy(@NotNull Supplier<@NotNull T> supplier) {
+    public BasicLazy(@NotNull Supplier<T> supplier) {
         this.supplier = supplier;
     }
 

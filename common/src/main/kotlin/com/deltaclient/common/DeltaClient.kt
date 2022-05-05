@@ -4,12 +4,7 @@ import com.deltaclient.common.bridge.client.IMinecraftClientBridge
 import com.deltaclient.common.bridge.language.II18nBridge
 import com.deltaclient.common.bridge.session.ISessionFactory
 import com.deltaclient.common.bridge.util.IDrawableHelperBridge
-import com.deltaclient.common.command.CommandRegistry
-import com.deltaclient.common.command.impl.FeatureCommand
-import com.deltaclient.common.command.impl.LoginCommand
-import com.deltaclient.common.command.impl.arg.DraggableHUDFeatureArgumentProvider
 import com.deltaclient.common.config.FeatureConfig
-import com.deltaclient.common.feature.AbstractDraggableHUDFeature
 import com.deltaclient.common.feature.FeatureService
 import com.deltaclient.common.i18n.I18nService
 import com.deltaclient.common.model.GameVersion
@@ -64,13 +59,6 @@ object DeltaClient {
         this.i18nBridge = i18nBridge
 
         loginFromEnv()
-
-        if (development) {
-            val registry = CommandRegistry()
-            registry.bind(AbstractDraggableHUDFeature::class.java).toProvider(DraggableHUDFeatureArgumentProvider())
-            registry.register(FeatureCommand(), "feature", "f", "feat")
-            registry.register(LoginCommand(), "login")
-        }
 
         I18nService.load()
         lwjglDisplay.setTitle("${I18nService.translate("client_name")} - $gameVersion")
